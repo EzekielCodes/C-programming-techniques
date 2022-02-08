@@ -5,7 +5,7 @@ namespace Labo1;
 
 public partial class LaboApplicatie : Form
 {
-    private Connection _connection =  new Connection();
+    private readonly Connection _connection =  new();
     public String Naam;
     public LaboApplicatie()
     {
@@ -33,7 +33,7 @@ public partial class LaboApplicatie : Form
     private void DocentenSelected(object sender, EventArgs e)
     {
 
-        Naam = this.docentenComboBox.GetItemText(this.docentenComboBox.SelectedItem.ToString());
+        Naam = docentenComboBox.GetItemText(docentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
         _connection.Naam = tokens[0];
         _connection.GetIdFromNaam(tokens[0]);
