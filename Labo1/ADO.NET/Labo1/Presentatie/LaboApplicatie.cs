@@ -33,7 +33,6 @@ public partial class LaboApplicatie : Form
 
     private void DocentenSelected(object sender, EventArgs e)
     {
-        //_connection.ReadFaseenSemester(4);
         Naam = docentenComboBox.GetItemText(docentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
         _connection.Naam = tokens[0];
@@ -41,7 +40,6 @@ public partial class LaboApplicatie : Form
         _connection.ReadVakkenDocenten();
         docentenTextBox.Clear();
         docentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamDocenten);
-        //Debug.WriteLine(_connection.Naam);
     }
 
     private void StudentenSelected(object sender, EventArgs e)
@@ -53,6 +51,5 @@ public partial class LaboApplicatie : Form
         _connection.ReadVakkenStudenten();
         studentenTextBox.Clear();
         studentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamStudenten);
-        //Debug.WriteLine(_connection.Naam);
     }
 }
