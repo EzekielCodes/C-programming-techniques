@@ -32,15 +32,14 @@ public partial class LaboApplicatie : Form
 
     private void DocentenSelected(object sender, EventArgs e)
     {
-        docentenTextBox.Clear();
-        docentenTextBox.Text = " ";
+
         Naam = this.docentenComboBox.GetItemText(this.docentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
         _connection.Naam = tokens[0];
         _connection.GetIdFromNaam(tokens[0]);
         _connection.ReadVakkenDocenten();
-        //docentenTextBox.Clear();
+        docentenTextBox.Clear();
         docentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaam);
-        Debug.WriteLine(_connection.Naam);
+        //Debug.WriteLine(_connection.Naam);
     }
 }
