@@ -72,6 +72,7 @@ partial class LaboApplicatie
             this.studentenComboBox.Name = "studentenComboBox";
             this.studentenComboBox.Size = new System.Drawing.Size(424, 33);
             this.studentenComboBox.TabIndex = 3;
+            this.studentenComboBox.SelectedIndexChanged += new System.EventHandler(this.StudentenSelected);
             // 
             // label3
             // 

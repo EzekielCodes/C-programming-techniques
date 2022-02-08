@@ -39,7 +39,19 @@ public partial class LaboApplicatie : Form
         _connection.GetIdFromNaam(tokens[0]);
         _connection.ReadVakkenDocenten();
         docentenTextBox.Clear();
-        docentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaam);
+        docentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamDocenten);
+        //Debug.WriteLine(_connection.Naam);
+    }
+
+    private void StudentenSelected(object sender, EventArgs e)
+    {
+        Naam = studentenComboBox.GetItemText(studentenComboBox.SelectedItem.ToString());
+        string[] tokens = Naam.Split(' ');
+        _connection.Naam = tokens[0];
+        _connection.GetIdFromNaam(tokens[0]);
+        _connection.ReadVakkenStudenten();
+        studentenTextBox.Clear();
+        studentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamStudenten);
         //Debug.WriteLine(_connection.Naam);
     }
 }

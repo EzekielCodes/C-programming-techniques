@@ -17,12 +17,8 @@ public class Connection
     private string _password;
     public List<String> docentenNaam = new();
     private String _fullnaam;
-    private String _naam;
-    public string Naam
-    {
-        get { return _naam; }
-        set { _naam = value; }
-    }
+
+    public string Naam { get; set; }
     private string _voornaam;
     private string _code;
     private string _naamVaak;
@@ -32,9 +28,10 @@ public class Connection
 
    public List<String> studentenNaam = new();
 
-   public List<String> vaakNaam = new();
+   public List<String> vaakNaamDocenten = new();
+    public List<String> vaakNaamStudenten= new();
 
-   public void Initialize()
+    public void Initialize()
    {
        _server = "localhost";
        _database = "laboapplicatie1";
@@ -96,14 +93,14 @@ public class Connection
            "FROM laboapplicatie1.persoon, docenten " +
            "Where docenten.Personeelslid_Persoon_idPersoon = persoon.idPersoon ; ";
 
-       MySqlCommand cmd = new MySqlCommand(query,_connection);
-       MySqlDataReader dataReader = cmd.ExecuteReader();
+       var cmd = new MySqlCommand(query,_connection);
+       var dataReader = cmd.ExecuteReader();
 
        while (dataReader.Read())
        {
-           _naam = dataReader[0].ToString();
+           Naam = dataReader[0].ToString();
            _voornaam = dataReader[1].ToString();
-           _fullnaam = _naam + " " + _voornaam;
+           _fullnaam = Naam + " " + _voornaam;
 
            docentenNaam.Add(_fullnaam);
        }
@@ -117,14 +114,14 @@ public class Connection
            "FROM laboapplicatie1.persoon, student " +
            "Where student.Persoon_idPersoon = persoon.idPersoon ; ";
 
-       MySqlCommand cmd = new MySqlCommand(query, _connection);
-       MySqlDataReader dataReader = cmd.ExecuteReader();
+       var cmd = new MySqlCommand(query, _connection);
+       var dataReader = cmd.ExecuteReader();
 
        while (dataReader.Read())
        {
-           _naam = dataReader[0].ToString();
+           Naam = dataReader[0].ToString();
            _voornaam = dataReader[1].ToString();
-           _fullnaam = _naam + " " + _voornaam;
+           _fullnaam = Naam + " " + _voornaam;
 
            studentenNaam.Add(_fullnaam);
        }
@@ -141,19 +138,43 @@ public class Connection
             " on opo.idOPO = opo_has_docenten.OPO_idOPO " +
             "where opo_has_docenten.Docenten_Personeelslid_Persoon_idPersoon = '" + _id +"'; ";
 
-        MySqlCommand cmd = new MySqlCommand(query, _connection);
-        MySqlDataReader dataReader = cmd.ExecuteReader();
+        var cmd = new MySqlCommand(query, _connection);
+        var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
         {
             _code = dataReader[0].ToString();
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();
-            _fullnaam = _naam + " " + _voornaam;
+      
 
             _opo = _code + ": " + _naamVaak + " (" + _stp + " stp)";
 
-            vaakNaam.Add(_opo);
+            vaakNaamDocenten.Add(_opo);
+        }
+        dataReader.Close();
+    }
+
+    public void ReadVakkenStudenten()
+    {
+        String query = "select opo.code,opo.naam,opo.stp " +
+            " from opo " +
+            "inner join student_has_opo  " +
+            "on opo.idOPO = student_has_opo.OPO_idOPO " +
+            " where student_has_opo.Student_Persoon_idPersoon = '" + _id +"';";
+
+        var cmd = new MySqlCommand(query, _connection);
+        var dataReader = cmd.ExecuteReader();
+
+        while (dataReader.Read())
+        {
+            _code = dataReader[0].ToString();
+            _naamVaak = dataReader[1].ToString();
+            _stp = dataReader[2].ToString();
+
+            _opo = _code + ": " + _naamVaak + " (" + _stp + " stp)";
+
+            vaakNaamStudenten.Add(_opo);
         }
         dataReader.Close();
     }
@@ -164,8 +185,8 @@ public class Connection
             "from persoon" +
             " where persoon.naam like '"+ n + "'; ";
 
-        MySqlCommand cmd = new MySqlCommand(query, _connection);
-        MySqlDataReader dataReader = cmd.ExecuteReader();
+        var cmd = new MySqlCommand(query, _connection);
+        var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
         {
@@ -175,7 +196,4 @@ public class Connection
         Debug.WriteLine(_id);
         dataReader.Close();
     }
-
 }
-
-
