@@ -15,7 +15,7 @@ public class Connection
     private string _database;
     private string _uid;
     private string _password;
-    public List<String> docentenNaam = new();
+    public List<Docent> docentenNaam = new();
     private String _fullnaam;
 
     public string Naam { get; set; }
@@ -29,12 +29,15 @@ public class Connection
 
     public Fase Fase { get; set;}
     public Semester Semester { get; set; }
-    public List<String> studentenNaam = new();
+    public List<Student> studentenNaam = new();
 
     public List<String> vaakNaamDocenten = new();
     public List<String> vaakNaamStudenten= new();
     public List<String> vaakFaseenSemester = new();
     public List<String> list = new();
+    Student student;
+    Docent docent;
+
     public void Initialize()
    {
        _server = "localhost";
@@ -104,12 +107,12 @@ public class Connection
        {
            Naam = dataReader[0].ToString();
            _voornaam = dataReader[1].ToString();
-           _fullnaam = Naam + " " + _voornaam;
-
-           docentenNaam.Add(_fullnaam);
+          // _fullnaam = Naam + " " + _voornaam;
+            docent = new Docent(Naam, _voornaam);
+            docentenNaam.Add(docent);           
        }
-
-       dataReader.Close();
+        Debug.WriteLine(docentenNaam[0].CompareTo(docentenNaam[2]));
+        dataReader.Close();
    }
 
    public void Readstudenten()
@@ -125,11 +128,15 @@ public class Connection
        {
            Naam = dataReader[0].ToString();
            _voornaam = dataReader[1].ToString();
-           _fullnaam = Naam + " " + _voornaam;
+           //_fullnaam = Naam + " " + _voornaam;
+           student = new Student(Naam,_voornaam);
+           studentenNaam.Add(student);
+           
 
-           studentenNaam.Add(_fullnaam);
-       }
-       dataReader.Close ();
+        }
+        Debug.WriteLine(studentenNaam[0].CompareTo(studentenNaam[2]));
+        dataReader.Close ();
+        
    }
 
    public void ReadVakkenDocenten()
@@ -193,6 +200,9 @@ public class Connection
             String [] tokens = list[i].Split(": ");
             GetIdFromCode(tokens[0]);
             vaakNaamStudenten[i] = list[i] + String.Join(" ", vaakFaseenSemester);
+
+            Debug.WriteLine(String.Join("", vaakNaamStudenten));
+            //Opo opo = new Opo();
         }   
     }
 

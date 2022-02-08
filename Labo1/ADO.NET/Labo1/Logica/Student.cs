@@ -30,7 +30,7 @@ public class Student:Persoon
 
     public override string ToString()
     {
-        return "Student" + _naam + _voornaam;
+        return _naam + " " +  _voornaam;
     }
 
     public  int CompareTo(object obj)
@@ -40,7 +40,7 @@ public class Student:Persoon
         Student otherStudent = obj as Student;
 
         if (otherStudent != null)
-            return this._voornaam.CompareTo(otherStudent._voornaam);
+            return this._naam.CompareTo(otherStudent._naam);
         else 
             throw new ArgumentException("");
     }

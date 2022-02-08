@@ -23,4 +23,21 @@ public class Opo
         Stp = stp;
         Semester = semester;
     }
+
+    public override string ToString()
+    {
+        return Code + " " + Naam;
+    }
+
+    public int CompareTo(object obj)
+    {
+
+        if (obj == null) return 1;
+        Opo otherOpo = obj as Opo;
+
+        if (otherOpo != null)
+            return this.Naam.CompareTo(otherOpo.Naam);
+        else
+            throw new ArgumentException("");
+    }
 }
