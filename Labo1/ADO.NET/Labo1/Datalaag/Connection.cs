@@ -217,11 +217,11 @@ public class Connection
         dataReader.Close();
     }
 
-    public void GetIdFromNaam(String n)
+    public void GetIdFromNaam(String n, String vm)
     {
         String query = " select persoon.idPersoon " +
             "from persoon" +
-            " where persoon.naam like '"+ n + "'; ";
+            " where persoon.naam like '"+ n + "' and persoon.voornaam like '" + vm + "'; ";
 
         var cmd = new MySqlCommand(query, _connection);
         var dataReader = cmd.ExecuteReader();

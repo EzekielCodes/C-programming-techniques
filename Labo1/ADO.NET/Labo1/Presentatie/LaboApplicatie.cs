@@ -37,7 +37,7 @@ public partial class LaboApplicatie : Form
         Naam = docentenComboBox.GetItemText(docentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
         _connection.Naam = tokens[0];
-        _connection.GetIdFromNaam(tokens[0]);
+        _connection.GetIdFromNaam(tokens[0],tokens[1]);
         _connection.ReadVakkenDocenten();
         docentenTextBox.Clear();
         docentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamDocenten);
@@ -49,7 +49,7 @@ public partial class LaboApplicatie : Form
         Naam = studentenComboBox.GetItemText(studentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
         _connection.Naam = tokens[0];
-        _connection.GetIdFromNaam(tokens[0]);
+        _connection.GetIdFromNaam(tokens[0],tokens[1]);
         _connection.ReadVakkenStudenten();
         studentenTextBox.Clear();
         studentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamStudenten);
