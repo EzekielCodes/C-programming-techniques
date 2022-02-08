@@ -39,7 +39,7 @@ CREATE TABLE `student_has_opo` (
 
 LOCK TABLES `student_has_opo` WRITE;
 /*!40000 ALTER TABLE `student_has_opo` DISABLE KEYS */;
-INSERT INTO `student_has_opo` VALUES (1,1),(2,1),(1,2),(2,3);
+INSERT INTO `student_has_opo` VALUES (1,1),(2,1),(1,2),(2,3),(7,3),(7,4);
 /*!40000 ALTER TABLE `student_has_opo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-08 12:24:46
+-- Dump completed on 2022-02-08 15:46:42

@@ -27,7 +27,7 @@ CREATE TABLE `persoon` (
   `voornaam` varchar(45) DEFAULT NULL,
   `idPersoon` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idPersoon`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `persoon` (
 
 LOCK TABLES `persoon` WRITE;
 /*!40000 ALTER TABLE `persoon` DISABLE KEYS */;
-INSERT INTO `persoon` VALUES ('Akindele','Toluwani',1),('Akindele','Ezekiel',2),('Tim','Vermeulen',3),('Johan','Dohane',4),('Verbeeck','Katja',5),('Demeester','Peter',6);
+INSERT INTO `persoon` VALUES ('Akindele','Toluwani',1),('Cedar','Ezekiel',2),('Tim','Vermeulen',3),('Johan','Dohane',4),('Verbeeck','Katja',5),('Demeester','Peter',6),('Akindele','Cedar',7);
 /*!40000 ALTER TABLE `persoon` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-08 12:24:46
+-- Dump completed on 2022-02-08 15:46:40
