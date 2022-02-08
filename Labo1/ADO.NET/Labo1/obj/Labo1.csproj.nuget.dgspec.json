@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Guest\\Desktop\\files\\C#\\Labo1\\Labo1\\Labo1.csproj": {}
+    "C:\\Users\\Guest\\c# programming techniques\\Labo1\\ADO.NET\\Labo1\\Labo1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Guest\\Desktop\\files\\C#\\Labo1\\Labo1\\Labo1.csproj": {
+    "C:\\Users\\Guest\\c# programming techniques\\Labo1\\ADO.NET\\Labo1\\Labo1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Guest\\Desktop\\files\\C#\\Labo1\\Labo1\\Labo1.csproj",
+        "projectUniqueName": "C:\\Users\\Guest\\c# programming techniques\\Labo1\\ADO.NET\\Labo1\\Labo1.csproj",
         "projectName": "Labo1",
-        "projectPath": "C:\\Users\\Guest\\Desktop\\files\\C#\\Labo1\\Labo1\\Labo1.csproj",
+        "projectPath": "C:\\Users\\Guest\\c# programming techniques\\Labo1\\ADO.NET\\Labo1\\Labo1.csproj",
         "packagesPath": "C:\\Users\\Guest\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Guest\\Desktop\\files\\C#\\Labo1\\Labo1\\obj\\",
+        "outputPath": "C:\\Users\\Guest\\c# programming techniques\\Labo1\\ADO.NET\\Labo1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
