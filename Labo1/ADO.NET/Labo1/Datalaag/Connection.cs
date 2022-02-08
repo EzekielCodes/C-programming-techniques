@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-
+using Labo1.Logica;
 namespace Labo1.Datalaag;
 
 public class Connection
@@ -19,18 +19,22 @@ public class Connection
     private String _fullnaam;
 
     public string Naam { get; set; }
-    private string _voornaam;
-    private string _code;
-    private string _naamVaak;
-    private string _stp;
-    private string _opo;
-    private String _id;
+    private string _voornaam = "" ;
+    private string _code = "";
+    private string _naamVaak = "" ;
+    private string _stp = "" ;
+    private string _opo = "" ;
+    private String _id = "" ;
+    private string _faseSemester = "";
 
-   public List<String> studentenNaam = new();
+    public Fase Fase { get; set;}
+    public Semester Semester { get; set; }
+    public List<String> studentenNaam = new();
 
-   public List<String> vaakNaamDocenten = new();
+    public List<String> vaakNaamDocenten = new();
     public List<String> vaakNaamStudenten= new();
-
+    public List<String> vaakFaseenSemester = new();
+    public List<String> list = new();
     public void Initialize()
    {
        _server = "localhost";
@@ -131,13 +135,13 @@ public class Connection
    public void ReadVakkenDocenten()
    {
 
-     
+        vaakNaamDocenten.Clear();
+        list.Clear();
         String query = "select opo.code,opo.naam,opo.stp " +
             "from opo " +
             "inner join opo_has_docenten " +
             " on opo.idOPO = opo_has_docenten.OPO_idOPO " +
             "where opo_has_docenten.Docenten_Personeelslid_Persoon_idPersoon = '" + _id +"'; ";
-
         var cmd = new MySqlCommand(query, _connection);
         var dataReader = cmd.ExecuteReader();
 
@@ -147,16 +151,23 @@ public class Connection
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();
       
-
             _opo = _code + ": " + _naamVaak + " (" + _stp + " stp)";
-
             vaakNaamDocenten.Add(_opo);
         }
         dataReader.Close();
+        list.AddRange(vaakNaamDocenten);
+        for (int i = 0; i < list.Count; i++)
+        {
+            String[] tokens = list[i].Split(": ");
+            GetIdFromCode(tokens[0]);
+            vaakNaamDocenten[i] = list[i] + String.Join(" ", vaakFaseenSemester);
+        }
     }
 
     public void ReadVakkenStudenten()
     {
+        vaakNaamStudenten.Clear();
+        list.Clear();
         String query = "select opo.code,opo.naam,opo.stp " +
             " from opo " +
             "inner join student_has_opo  " +
@@ -173,8 +184,35 @@ public class Connection
             _stp = dataReader[2].ToString();
 
             _opo = _code + ": " + _naamVaak + " (" + _stp + " stp)";
-
             vaakNaamStudenten.Add(_opo);
+        }
+        dataReader.Close();
+        list.AddRange(vaakNaamStudenten);
+        for (int i = 0; i < list.Count; i++)
+        {
+            String [] tokens = list[i].Split(": ");
+            GetIdFromCode(tokens[0]);
+            vaakNaamStudenten[i] = list[i] + String.Join(" ", vaakFaseenSemester);
+        }   
+    }
+
+    public void ReadFaseenSemester(String  id)
+    {
+        vaakFaseenSemester.Clear();
+        String query = "select semester.semester,fase.fase " +
+            "from semester,fase " +
+            "where semester.OPO_idOPO = '" + id +"' and fase.OPO_idOPO = '" + id + "'; ";
+
+        var cmd = new MySqlCommand(query, _connection);
+        var dataReader = cmd.ExecuteReader();
+
+        while (dataReader.Read())
+        {
+            
+            Fase = Enum.Parse<Fase>(dataReader[1].ToString());
+            Semester = Enum.Parse<Semester>(dataReader[0].ToString());
+            _faseSemester = " "+ Fase + "  "+  Semester;
+            vaakFaseenSemester.Add(_faseSemester);
         }
         dataReader.Close();
     }
@@ -192,8 +230,23 @@ public class Connection
         {
             _id = dataReader[0].ToString();
         }
-
-        Debug.WriteLine(_id);
         dataReader.Close();
+    }
+
+    public void GetIdFromCode(String code)
+    {
+        String query = " select opo.idOPO " +
+            "from opo " +
+            "where opo.code = '" + code + "'; ";
+
+        var cmd = new MySqlCommand(query, _connection);
+        var dataReader = cmd.ExecuteReader();
+
+        while (dataReader.Read())
+        {
+            _id = dataReader[0].ToString();
+        }
+        dataReader.Close();
+        ReadFaseenSemester(_id);
     }
 }

@@ -13,6 +13,7 @@ public partial class LaboApplicatie : Form
         _connection.Initialize();
         FillComboboxDocenten();
         FillComboboxStudenten();
+
         
 
     }
@@ -32,7 +33,7 @@ public partial class LaboApplicatie : Form
 
     private void DocentenSelected(object sender, EventArgs e)
     {
-
+        //_connection.ReadFaseenSemester(4);
         Naam = docentenComboBox.GetItemText(docentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
         _connection.Naam = tokens[0];
