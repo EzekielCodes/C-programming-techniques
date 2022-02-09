@@ -33,10 +33,9 @@ public class Opo
     {
 
         if (obj == null) return 1;
-        Opo otherOpo = obj as Opo;
 
-        if (otherOpo != null)
-            return this.Code.CompareTo(otherOpo.Code);
+        if (obj as Opo != null)
+            return Code.CompareTo((obj as Opo).Code);
         else
             throw new ArgumentException("");
     }

@@ -36,12 +36,11 @@ public class Docent:Personeelslid
     {
 
         if (obj == null) return 1;
-        Docent otherDocent = obj as Docent;
+        var otherDocent = obj as Docent;
 
         if (otherDocent != null)
-            return this._naam.CompareTo(otherDocent._naam);
+            return _naam.CompareTo(otherDocent._naam);
         else
             throw new ArgumentException("");
     }
-
 }

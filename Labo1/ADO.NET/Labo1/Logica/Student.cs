@@ -23,8 +23,8 @@ public class Student:Persoon
 
     public Student(String naam, String voornaam)
     {
-        this._naam = naam;
-        this._voornaam = voornaam;
+        _naam = naam;
+        _voornaam = voornaam;
     }
     
 
@@ -37,10 +37,10 @@ public class Student:Persoon
     {
         
         if(obj == null) return 1;
-        Student otherStudent = obj as Student;
+        var otherStudent = obj as Student;
 
         if (otherStudent != null)
-            return this._naam.CompareTo(otherStudent._naam);
+            return _naam.CompareTo(otherStudent._naam);
         else 
             throw new ArgumentException("");
     }

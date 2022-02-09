@@ -149,9 +149,11 @@ public class Connection
             "inner join opo_has_docenten " +
             " on opo.idOPO = opo_has_docenten.OPO_idOPO " +
             "where opo_has_docenten.Docenten_Personeelslid_Persoon_idPersoon = @id";
-        MySqlParameter param = new MySqlParameter();
-        param.ParameterName = "@id";
-        param.Value = _id;
+        var param = new MySqlParameter
+        {
+            ParameterName = "@id",
+            Value = _id
+        };
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
         var dataReader = cmd.ExecuteReader();
@@ -187,9 +189,11 @@ public class Connection
             "inner join student_has_opo  " +
             "on opo.idOPO = student_has_opo.OPO_idOPO " +
             " where student_has_opo.Student_Persoon_idPersoon = @id;";
-        MySqlParameter param = new MySqlParameter();
-        param.ParameterName = "@id";
-        param.Value = _id;
+        var param = new MySqlParameter
+        {
+            ParameterName = "@id",
+            Value = _id
+        };
 
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
@@ -224,9 +228,11 @@ public class Connection
             "from semester,fase " +
             "where semester.OPO_idOPO = @id and fase.OPO_idOPO = @id; ";
 
-        MySqlParameter param = new MySqlParameter();
-        param.ParameterName = "@id";
-        param.Value = id;
+        var param = new MySqlParameter
+        {
+            ParameterName = "@id",
+            Value = id
+        };
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
         var dataReader = cmd.ExecuteReader();
@@ -247,8 +253,8 @@ public class Connection
             "from persoon" +
             " where persoon.naam like @naam and persoon.voornaam like @vnaam; ";
 
-        MySqlParameter Nparam = new MySqlParameter();
-        MySqlParameter Vparam = new MySqlParameter();
+        var Nparam = new MySqlParameter();
+        var Vparam = new MySqlParameter();
         Nparam.ParameterName = "@naam";
         Nparam.Value = n;
         Vparam.ParameterName = "@vnaam";
@@ -272,9 +278,11 @@ public class Connection
             "from opo " +
             "where opo.code = @code; ";
 
-        MySqlParameter param = new MySqlParameter();
-        param.ParameterName = "@code";
-        param.Value = code;
+        var param = new MySqlParameter
+        {
+            ParameterName = "@code",
+            Value = code
+        };
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
         var dataReader = cmd.ExecuteReader();
