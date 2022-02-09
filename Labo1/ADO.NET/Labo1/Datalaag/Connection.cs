@@ -41,9 +41,9 @@ public class Connection
     private Opo _opoObject;
     public void Initialize()
    {
-       _server = "localhost";
+       _server = "laboapplicatie1.mysql.database.azure.com";
        _database = "laboapplicatie1";
-       _uid = "Akindele";
+       _uid = "Ezekiel@laboapplicatie1";
        _password = "Azerty123";
        string connectionString;
        connectionString = "SERVER=" + _server + ";" + "DATABASE=" +
