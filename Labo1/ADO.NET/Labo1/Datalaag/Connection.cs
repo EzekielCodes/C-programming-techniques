@@ -148,8 +148,12 @@ public class Connection
             "from opo " +
             "inner join opo_has_docenten " +
             " on opo.idOPO = opo_has_docenten.OPO_idOPO " +
-            "where opo_has_docenten.Docenten_Personeelslid_Persoon_idPersoon = '" + _id +"'; ";
+            "where opo_has_docenten.Docenten_Personeelslid_Persoon_idPersoon = @id";
+        MySqlParameter param = new MySqlParameter();
+        param.ParameterName = "@id";
+        param.Value = _id;
         var cmd = new MySqlCommand(query, _connection);
+        cmd.Parameters.Add(param);
         var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
@@ -182,9 +186,13 @@ public class Connection
             " from opo " +
             "inner join student_has_opo  " +
             "on opo.idOPO = student_has_opo.OPO_idOPO " +
-            " where student_has_opo.Student_Persoon_idPersoon = '" + _id +"';";
+            " where student_has_opo.Student_Persoon_idPersoon = @id;";
+        MySqlParameter param = new MySqlParameter();
+        param.ParameterName = "@id";
+        param.Value = _id;
 
         var cmd = new MySqlCommand(query, _connection);
+        cmd.Parameters.Add(param);
         var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
@@ -202,7 +210,7 @@ public class Connection
             String [] tokens = list[i].Split("-");
             GetIdFromCode(tokens[0]);
             vaakNaamStudenten[i] = list[i] + String.Join(" ", vaakFaseenSemester);
-            String[] token = vaakNaamDocenten[i].Split("-");
+            String[] token = vaakNaamStudenten[i].Split("-");
             _opoObject = new Opo(token[0], token[1], Int16.Parse(token[2]), Enum.Parse<Fase>(token[3]), Enum.Parse<Semester>(token[4]));
             opoNamen.Add(_opoObject);
             
@@ -214,9 +222,13 @@ public class Connection
         vaakFaseenSemester.Clear();
         String query = "select semester.semester,fase.fase " +
             "from semester,fase " +
-            "where semester.OPO_idOPO = '" + id +"' and fase.OPO_idOPO = '" + id + "'; ";
+            "where semester.OPO_idOPO = @id and fase.OPO_idOPO = @id; ";
 
+        MySqlParameter param = new MySqlParameter();
+        param.ParameterName = "@id";
+        param.Value = id;
         var cmd = new MySqlCommand(query, _connection);
+        cmd.Parameters.Add(param);
         var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
@@ -233,9 +245,18 @@ public class Connection
     {
         String query = " select persoon.idPersoon " +
             "from persoon" +
-            " where persoon.naam like '"+ n + "' and persoon.voornaam like '" + vm + "'; ";
+            " where persoon.naam like @naam and persoon.voornaam like @vnaam; ";
+
+        MySqlParameter Nparam = new MySqlParameter();
+        MySqlParameter Vparam = new MySqlParameter();
+        Nparam.ParameterName = "@naam";
+        Nparam.Value = n;
+        Vparam.ParameterName = "@vnaam";
+        Vparam.Value = vm;
 
         var cmd = new MySqlCommand(query, _connection);
+        cmd.Parameters.Add(Vparam);
+        cmd.Parameters.Add(Nparam);
         var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
@@ -249,9 +270,13 @@ public class Connection
     {
         String query = " select opo.idOPO " +
             "from opo " +
-            "where opo.code = '" + code + "'; ";
+            "where opo.code = @code; ";
 
+        MySqlParameter param = new MySqlParameter();
+        param.ParameterName = "@code";
+        param.Value = code;
         var cmd = new MySqlCommand(query, _connection);
+        cmd.Parameters.Add(param);
         var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
