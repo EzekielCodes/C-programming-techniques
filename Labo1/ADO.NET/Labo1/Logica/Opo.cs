@@ -26,7 +26,7 @@ public class Opo
 
     public override string ToString()
     {
-        return Code + " " + Naam;
+        return " " + Code + " " + Naam;
     }
 
     public int CompareTo(object obj)
@@ -36,7 +36,7 @@ public class Opo
         Opo otherOpo = obj as Opo;
 
         if (otherOpo != null)
-            return this.Naam.CompareTo(otherOpo.Naam);
+            return this.Code.CompareTo(otherOpo.Code);
         else
             throw new ArgumentException("");
     }

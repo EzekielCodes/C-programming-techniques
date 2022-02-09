@@ -16,7 +16,7 @@ public class Connection
     private string _uid;
     private string _password;
     public List<Docent> docentenNaam = new();
-    private String _fullnaam;
+    
 
     public string Naam { get; set; }
     private string _voornaam = "" ;
@@ -30,14 +30,15 @@ public class Connection
     public Fase Fase { get; set;}
     public Semester Semester { get; set; }
     public List<Student> studentenNaam = new();
+    public List<Opo> opoNamen = new();
 
     public List<String> vaakNaamDocenten = new();
     public List<String> vaakNaamStudenten= new();
     public List<String> vaakFaseenSemester = new();
     public List<String> list = new();
-    Student student;
-    Docent docent;
-
+    private Student _student;
+    private Docent _docent;
+    private Opo _opoObject;
     public void Initialize()
    {
        _server = "localhost";
@@ -107,9 +108,8 @@ public class Connection
        {
            Naam = dataReader[0].ToString();
            _voornaam = dataReader[1].ToString();
-          // _fullnaam = Naam + " " + _voornaam;
-            docent = new Docent(Naam, _voornaam);
-            docentenNaam.Add(docent);           
+            _docent = new Docent(Naam, _voornaam);
+            docentenNaam.Add(_docent);           
        }
         Debug.WriteLine(docentenNaam[0].CompareTo(docentenNaam[2]));
         dataReader.Close();
@@ -128,9 +128,8 @@ public class Connection
        {
            Naam = dataReader[0].ToString();
            _voornaam = dataReader[1].ToString();
-           //_fullnaam = Naam + " " + _voornaam;
-           student = new Student(Naam,_voornaam);
-           studentenNaam.Add(student);
+           _student = new Student(Naam,_voornaam);
+           studentenNaam.Add(_student);
            
 
         }
@@ -144,6 +143,7 @@ public class Connection
 
         vaakNaamDocenten.Clear();
         list.Clear();
+        opoNamen.Clear();
         String query = "select opo.code,opo.naam,opo.stp " +
             "from opo " +
             "inner join opo_has_docenten " +
@@ -156,18 +156,20 @@ public class Connection
         {
             _code = dataReader[0].ToString();
             _naamVaak = dataReader[1].ToString();
-            _stp = dataReader[2].ToString();
-      
-            _opo = _code + ": " + _naamVaak + " (" + _stp + " stp)";
+            _stp = dataReader[2].ToString();    
+            _opo = _code + "-" + _naamVaak + "-" + _stp +  "-";
             vaakNaamDocenten.Add(_opo);
         }
         dataReader.Close();
         list.AddRange(vaakNaamDocenten);
         for (int i = 0; i < list.Count; i++)
         {
-            String[] tokens = list[i].Split(": ");
+            String[] tokens = list[i].Split("-");           
             GetIdFromCode(tokens[0]);
             vaakNaamDocenten[i] = list[i] + String.Join(" ", vaakFaseenSemester);
+            String[] token = vaakNaamDocenten[i].Split("-");
+            _opoObject = new Opo(token[0], token[1], Int16.Parse(token[2]), Enum.Parse<Fase>(token[3]), Enum.Parse<Semester>(token[4]));
+            opoNamen.Add(_opoObject);
         }
     }
 
@@ -175,6 +177,7 @@ public class Connection
     {
         vaakNaamStudenten.Clear();
         list.Clear();
+        opoNamen.Clear();
         String query = "select opo.code,opo.naam,opo.stp " +
             " from opo " +
             "inner join student_has_opo  " +
@@ -189,21 +192,21 @@ public class Connection
             _code = dataReader[0].ToString();
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();
-
-            _opo = _code + ": " + _naamVaak + " (" + _stp + " stp)";
+            _opo = _code + "-" + _naamVaak + "-" + _stp + "-";
             vaakNaamStudenten.Add(_opo);
         }
         dataReader.Close();
         list.AddRange(vaakNaamStudenten);
         for (int i = 0; i < list.Count; i++)
         {
-            String [] tokens = list[i].Split(": ");
+            String [] tokens = list[i].Split("-");
             GetIdFromCode(tokens[0]);
             vaakNaamStudenten[i] = list[i] + String.Join(" ", vaakFaseenSemester);
-
-            Debug.WriteLine(String.Join("", vaakNaamStudenten));
-            //Opo opo = new Opo();
-        }   
+            String[] token = vaakNaamDocenten[i].Split("-");
+            _opoObject = new Opo(token[0], token[1], Int16.Parse(token[2]), Enum.Parse<Fase>(token[3]), Enum.Parse<Semester>(token[4]));
+            opoNamen.Add(_opoObject);
+            
+        }
     }
 
     public void ReadFaseenSemester(String  id)
@@ -218,10 +221,9 @@ public class Connection
 
         while (dataReader.Read())
         {
-            
             Fase = Enum.Parse<Fase>(dataReader[1].ToString());
             Semester = Enum.Parse<Semester>(dataReader[0].ToString());
-            _faseSemester = " "+ Fase + "  "+  Semester;
+            _faseSemester = Fase + "-"+  Semester;
             vaakFaseenSemester.Add(_faseSemester);
         }
         dataReader.Close();
