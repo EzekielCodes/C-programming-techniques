@@ -50,3 +50,12 @@ C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\obj\Debug\net6.0-wi
 C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\obj\Debug\net6.0-windows\ref\Labo1.dll
 C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\obj\Debug\net6.0-windows\Labo1.pdb
 C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\obj\Debug\net6.0-windows\Labo1.genruntimeconfig.cache
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\Dapper.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Guest\c# programming techniques\Labo1\ADO.NET\Labo1\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

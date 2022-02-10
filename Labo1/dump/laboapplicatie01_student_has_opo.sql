@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: localhost    Database: laboapplicatie1
+-- Host: localhost    Database: laboapplicatie01
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -16,28 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `persoon`
+-- Table structure for table `student_has_opo`
 --
 
-DROP TABLE IF EXISTS `persoon`;
+DROP TABLE IF EXISTS `student_has_opo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `persoon` (
-  `naam` varchar(45) NOT NULL,
-  `voornaam` varchar(45) DEFAULT NULL,
-  `idPersoon` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idPersoon`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+CREATE TABLE `student_has_opo` (
+  `Student_Persoon_idPersoon` int NOT NULL,
+  `OPO_idOPO` int NOT NULL,
+  PRIMARY KEY (`Student_Persoon_idPersoon`,`OPO_idOPO`),
+  KEY `fk_Student_has_OPO_OPO1_idx` (`OPO_idOPO`),
+  KEY `fk_Student_has_OPO_Student1_idx` (`Student_Persoon_idPersoon`),
+  CONSTRAINT `fk_Student_has_OPO_OPO1` FOREIGN KEY (`OPO_idOPO`) REFERENCES `opo` (`idOPO`),
+  CONSTRAINT `fk_Student_has_OPO_Student1` FOREIGN KEY (`Student_Persoon_idPersoon`) REFERENCES `student` (`Persoon_idPersoon`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `persoon`
+-- Dumping data for table `student_has_opo`
 --
 
-LOCK TABLES `persoon` WRITE;
-/*!40000 ALTER TABLE `persoon` DISABLE KEYS */;
-INSERT INTO `persoon` VALUES ('Akindele','Toluwani',1),('Cedar','Ezekiel',2),('Tim','Vermeulen',3),('Johan','Dohane',4),('Verbeeck','Katja',5),('Demeester','Peter',6),('Akindele','Cedar',7);
-/*!40000 ALTER TABLE `persoon` ENABLE KEYS */;
+LOCK TABLES `student_has_opo` WRITE;
+/*!40000 ALTER TABLE `student_has_opo` DISABLE KEYS */;
+INSERT INTO `student_has_opo` VALUES (1,1),(2,2),(3,3),(1,4),(2,4),(3,4);
+/*!40000 ALTER TABLE `student_has_opo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-08 15:46:40
+-- Dump completed on 2022-02-10 13:26:30

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: localhost    Database: laboapplicatie1
+-- Host: localhost    Database: laboapplicatie01
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -16,27 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `personeelslid`
+-- Table structure for table `student`
 --
 
-DROP TABLE IF EXISTS `personeelslid`;
+DROP TABLE IF EXISTS `student`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `personeelslid` (
+CREATE TABLE `student` (
   `Persoon_idPersoon` int NOT NULL,
   PRIMARY KEY (`Persoon_idPersoon`),
-  CONSTRAINT `fk_Personeelslid_Persoon1` FOREIGN KEY (`Persoon_idPersoon`) REFERENCES `persoon` (`idPersoon`)
+  CONSTRAINT `fk_Student_Persoon` FOREIGN KEY (`Persoon_idPersoon`) REFERENCES `persoon` (`idPersoon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `personeelslid`
+-- Dumping data for table `student`
 --
 
-LOCK TABLES `personeelslid` WRITE;
-/*!40000 ALTER TABLE `personeelslid` DISABLE KEYS */;
-INSERT INTO `personeelslid` VALUES (3),(4),(5),(6);
-/*!40000 ALTER TABLE `personeelslid` ENABLE KEYS */;
+LOCK TABLES `student` WRITE;
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES (1),(2),(3);
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-08 15:46:41
+-- Dump completed on 2022-02-10 13:26:30

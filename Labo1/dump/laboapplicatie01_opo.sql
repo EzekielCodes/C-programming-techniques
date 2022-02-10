@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: localhost    Database: laboapplicatie1
+-- Host: localhost    Database: laboapplicatie01
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -27,6 +27,8 @@ CREATE TABLE `opo` (
   `code` varchar(45) DEFAULT NULL,
   `naam` varchar(45) DEFAULT NULL,
   `stp` int DEFAULT NULL,
+  `fase` enum('fase1','fase2','fase3') DEFAULT NULL,
+  `Semester` enum('sem1','sem2') DEFAULT NULL,
   PRIMARY KEY (`idOPO`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +39,7 @@ CREATE TABLE `opo` (
 
 LOCK TABLES `opo` WRITE;
 /*!40000 ALTER TABLE `opo` DISABLE KEYS */;
-INSERT INTO `opo` VALUES (1,'OGI02F','Problem Solving for ICT',6),(2,'OGI02X','C# OO Programming',6),(3,'OGI02Z','Algo & Data',6),(4,'OGI02G','Object Orientation & Database Concepts',12);
+INSERT INTO `opo` VALUES (1,'OGI02M','Network Infrastructure 1',6,'fase1','sem2'),(2,'OGI02X','C# OO Programming',6,'fase2','sem1'),(3,'	OGI02Z','Algo & Data',6,'fase2','sem1'),(4,'OGI02V','Data Security',6,'fase2','sem2');
 /*!40000 ALTER TABLE `opo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-08 15:46:43
+-- Dump completed on 2022-02-10 13:26:30

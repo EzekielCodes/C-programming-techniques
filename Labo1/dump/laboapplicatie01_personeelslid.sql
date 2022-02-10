@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: localhost    Database: laboapplicatie1
+-- Host: localhost    Database: laboapplicatie01
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
@@ -16,29 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `semester`
+-- Table structure for table `personeelslid`
 --
 
-DROP TABLE IF EXISTS `semester`;
+DROP TABLE IF EXISTS `personeelslid`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `semester` (
-  `semester` enum('sem1','sem2') NOT NULL,
-  `OPO_idOPO` int NOT NULL,
-  PRIMARY KEY (`OPO_idOPO`),
-  KEY `fk_Semester_OPO1_idx` (`OPO_idOPO`),
-  CONSTRAINT `fk_Semester_OPO1` FOREIGN KEY (`OPO_idOPO`) REFERENCES `opo` (`idOPO`)
+CREATE TABLE `personeelslid` (
+  `Persoon_idPersoon` int NOT NULL,
+  PRIMARY KEY (`Persoon_idPersoon`),
+  CONSTRAINT `fk_Personeelslid_Persoon1` FOREIGN KEY (`Persoon_idPersoon`) REFERENCES `persoon` (`idPersoon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `semester`
+-- Dumping data for table `personeelslid`
 --
 
-LOCK TABLES `semester` WRITE;
-/*!40000 ALTER TABLE `semester` DISABLE KEYS */;
-INSERT INTO `semester` VALUES ('sem1',1),('sem1',2),('sem1',3),('sem2',4);
-/*!40000 ALTER TABLE `semester` ENABLE KEYS */;
+LOCK TABLES `personeelslid` WRITE;
+/*!40000 ALTER TABLE `personeelslid` DISABLE KEYS */;
+INSERT INTO `personeelslid` VALUES (4),(5),(6);
+/*!40000 ALTER TABLE `personeelslid` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-08 15:46:42
+-- Dump completed on 2022-02-10 13:26:29

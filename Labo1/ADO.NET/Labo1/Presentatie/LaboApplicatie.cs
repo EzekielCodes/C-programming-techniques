@@ -5,28 +5,28 @@ namespace Labo1;
 
 public partial class LaboApplicatie : Form
 {
-    private readonly Connection _connection =  new();
+    private readonly ConnectionAdo _connectionAdo =  new();
+    private readonly ConnectionDapper _connectionDapper = new();
     public String Naam;
     public LaboApplicatie()
     {
         InitializeComponent();
-        _connection.Initialize();
+        //_connectionDapper.Initialize();
+       
+        _connectionAdo.Initialize();
         FillComboboxDocenten();
         FillComboboxStudenten();
-
-        
-
     }
     private void FillComboboxDocenten()
     {
-        var docentenLijst = _connection.docentenNaam;
+        var docentenLijst = _connectionAdo.docentenNaam;
         for (int i = 0; i < docentenLijst.Count; i++)
             docentenComboBox.Items.Add(docentenLijst[i]);
     }
 
     private void FillComboboxStudenten()
     {
-        var studentenLijst = _connection.studentenNaam;
+        var studentenLijst = _connectionAdo.studentenNaam;
         for (int i = 0; i < studentenLijst.Count; i++)
             studentenComboBox.Items.Add(studentenLijst[i]);
     }
@@ -35,21 +35,21 @@ public partial class LaboApplicatie : Form
     {
         Naam = docentenComboBox.GetItemText(docentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
-        _connection.Naam = tokens[0];
-        _connection.GetIdFromNaam(tokens[0],tokens[1]);
-        _connection.ReadVakkenDocenten();
+        _connectionAdo.Naam = tokens[0];
+        _connectionAdo.GetIdFromNaam(tokens[0], tokens[1]);
+        _connectionAdo.ReadVakkenDocenten();
         docentenTextBox.Clear();
-        docentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamDocenten);
+        docentenTextBox.Text = String.Join(Environment.NewLine, _connectionAdo.vaakNaamDocenten);
     }
 
     private void StudentenSelected(object sender, EventArgs e)
     {
         Naam = studentenComboBox.GetItemText(studentenComboBox.SelectedItem.ToString());
         string[] tokens = Naam.Split(' ');
-        _connection.Naam = tokens[0];
-        _connection.GetIdFromNaam(tokens[0],tokens[1]);
-        _connection.ReadVakkenStudenten();
+        _connectionAdo.Naam = tokens[0];
+        _connectionAdo.GetIdFromNaam(tokens[0], tokens[1]);
+        _connectionAdo.ReadVakkenStudenten();
         studentenTextBox.Clear();
-        studentenTextBox.Text = String.Join(Environment.NewLine, _connection.vaakNaamStudenten);
+        studentenTextBox.Text = String.Join(Environment.NewLine, _connectionAdo.vaakNaamStudenten);
     }
 }
