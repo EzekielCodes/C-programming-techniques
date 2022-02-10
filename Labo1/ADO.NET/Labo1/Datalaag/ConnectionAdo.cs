@@ -26,12 +26,10 @@ public class ConnectionAdo
     public Semester Semester { get; set; }
     public List<Student> studentenNaam = new();
 
-    public List<String> vaakNaamDocenten = new();
-    public List<String> vaakNaamStudenten= new();
-    public List<String> vaakFaseenSemester = new();
+    public List<String> opoNaam = new();
     private Student _student;
     private Docent _docent;
-    private Opo _opoObject;
+    public Opo _opoObject;
     public void Initialize()
    {
        string connectionString = "SERVER=laboapplicatie01.mysql.database.azure.com;DATABASE=laboapplicatie01;UID=Ezekiel@laboapplicatie01;PASSWORD=Azerty123";
@@ -127,7 +125,7 @@ public class ConnectionAdo
    public void ReadVakkenDocenten()
    {
         OpenConnection();
-        vaakNaamDocenten.Clear();
+        opoNaam.Clear();
         String query = "select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
             "inner join opo_has_docenten " +
@@ -148,8 +146,8 @@ public class ConnectionAdo
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();    
             _opo = _code + "-" + _naamVaak + "-" + _stp +  "-" + Enum.Parse<Fase>(dataReader[3].ToString()) + "-" + Enum.Parse<Semester>(dataReader[4].ToString());
-            vaakNaamDocenten.Add(_opo);
-            _opoObject = new Opo(_code, _naamVaak, Int32.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
+            opoNaam.Add(_opo);
+            _opoObject = new Opo(_code, _naamVaak, int.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
         }
         dataReader.Close();
         CloseConnection();
@@ -158,7 +156,7 @@ public class ConnectionAdo
     public void ReadVakkenStudenten()
     {
         OpenConnection();
-        vaakNaamStudenten.Clear();
+        opoNaam.Clear();
         String query = "select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
             "inner join student_has_opo " +
@@ -180,7 +178,7 @@ public class ConnectionAdo
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();
             _opo = _code + "-" + _naamVaak + "-" + _stp + "-" + Enum.Parse<Fase>(dataReader[3].ToString()) + "-" + Enum.Parse<Semester>(dataReader[4].ToString()); ;
-            vaakNaamStudenten.Add(_opo);
+            opoNaam.Add(_opo);
             _opoObject = new Opo(_code, _naamVaak, Int32.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
         }
         dataReader.Close();

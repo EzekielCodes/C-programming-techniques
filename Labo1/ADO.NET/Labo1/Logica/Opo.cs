@@ -9,7 +9,7 @@ namespace Labo1.Logica;
 public class Opo
 {
     public string Code { get; set; }
-    private Fase Fase { get; set; }
+    private Fase fase { get; set; }
     private Semester Semester { get; set; }
     public int Stp { get; set; }
 
@@ -19,14 +19,14 @@ public class Opo
     {
         Code = code;
         Naam = naam;
-        Fase = fase;
+        this.fase = fase;
         Stp = stp;
         Semester = semester;
     }
 
     public override string ToString()
     {
-        return " " + Code + " " + Naam;
+        return Code + ": " + Naam + "(" + Stp + " stp, " + fase + "," + Semester + ")";
     }
 
     public int CompareTo(object obj)

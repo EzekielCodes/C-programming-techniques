@@ -18,6 +18,8 @@ public class ConnectionDapper
     public List<Opo> opoNaam = new();
     public MySqlConnection con;
     private String _id = "";
+    public string Naam { get; set; }
+ 
     public void Initialize()
     {
         ReadStudenten();
@@ -66,7 +68,7 @@ public class ConnectionDapper
     {
         OpenConnection();
         studentenNaam = con.Query<Student>("SELECT persoon.naam,persoon.voornaam " +
-           "FROM laboapplicatie1.persoon, student " +
+           "FROM laboapplicatie01.persoon, student " +
            "Where student.Persoon_idPersoon = persoon.idPersoon ; ").ToList();
         Debug.WriteLine(String.Join(" ", studentenNaam));
 
@@ -81,27 +83,62 @@ public class ConnectionDapper
     {
         OpenConnection();
         docentenNaam = con.Query<Docent>("SELECT persoon.naam,persoon.voornaam " +
-          "FROM laboapplicatie1.persoon, docenten " +
+          "FROM laboapplicatie01.persoon, docenten " +
           "Where docenten.Personeelslid_Persoon_idPersoon = persoon.idPersoon ; ").ToList();
         Debug.WriteLine(String.Join(" ", docentenNaam));
 
-        
+
         CloseConnection();
     }
 
     public void ReadVakkenStudenten()
     {
         OpenConnection();
-       opoNaam = con.Query<Opo>("select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
+    
+        Debug.WriteLine(_id + "readvaak");
+        opoNaam = con.Query<Opo>("select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
             "inner join student_has_opo " +
             "on opo.idOPO = student_has_opo.OPO_idOPO" +
-            " where student_has_opo.Student_Persoon_idPersoon = @id;").ToList();
-        var param = new MySqlParameter
+            " where student_has_opo.Student_Persoon_idPersoon = @id;", new {id = _id}).ToList();
+        foreach (var Student in opoNaam)
         {
-            ParameterName = "@id",
-            Value = _id
-        };
+            Debug.WriteLine(opoNaam.ToString());
+        }
+       
+        
         CloseConnection();
     }
+    public void ReadVakkenDocenten()
+    {
+        OpenConnection();
+        opoNaam = con.Query<Opo>("select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
+            "from opo " +
+            "inner join student_has_opo " +
+            "on opo.idOPO = student_has_opo.OPO_idOPO" +
+            " where opo_has_docenten.Docenten_Personeelslid_Persoon_idPersoon  = @id;", new { id = _id }).ToList();
+
+        foreach (var Student in opoNaam)
+        {
+            Debug.WriteLine(opoNaam.ToString());
+        }
+
+        CloseConnection();
+    }
+    public void GetIdFromNaam(String n, String vm)
+    {
+        OpenConnection();
+        String query = " select persoon.idPersoon " +
+            "from persoon" +
+            " where persoon.naam like @naam and persoon.voornaam like @vnaam; ";
+
+        _id = con.QueryFirstOrDefault<String>(query, new {naam = n, vnaam = vm });
+
+        Debug.WriteLine(_id);
+        CloseConnection();
+    }
+
+   
+
+
 }
