@@ -12,21 +12,18 @@ public class ConnectionAdo
 {
     private MySqlConnection _connection;
     public List<Docent> docentenNaam = new();
-    
+    public List<Student> studentenNaam = new();
+    public List<Opo> opoNaam = new();
 
     public string Naam { get; set; }
     private string _voornaam = "" ;
     private string _code = "";
     private string _naamVaak = "" ;
     private string _stp = "" ;
-    private string _opo = "" ;
     private String _id = "" ;
 
     public Fase Fase { get; set;}
     public Semester Semester { get; set; }
-    public List<Student> studentenNaam = new();
-
-    public List<String> opoNaam = new();
     private Student _student;
     private Docent _docent;
     public Opo _opoObject;
@@ -146,8 +143,9 @@ public class ConnectionAdo
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();    
             _opo = _code + "-" + _naamVaak + "-" + _stp +  "-" + Enum.Parse<Fase>(dataReader[3].ToString()) + "-" + Enum.Parse<Semester>(dataReader[4].ToString());
-            opoNaam.Add(_opo);
+            
             _opoObject = new Opo(_code, _naamVaak, int.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
+            opoNaam.Add(_opoObject);
         }
         dataReader.Close();
         CloseConnection();
@@ -178,8 +176,9 @@ public class ConnectionAdo
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();
             _opo = _code + "-" + _naamVaak + "-" + _stp + "-" + Enum.Parse<Fase>(dataReader[3].ToString()) + "-" + Enum.Parse<Semester>(dataReader[4].ToString()); ;
-            opoNaam.Add(_opo);
+            //opoNaam.Add(_opo);
             _opoObject = new Opo(_code, _naamVaak, Int32.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
+            opoNaam.Add(_opoObject);
         }
         dataReader.Close();
         CloseConnection();

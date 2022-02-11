@@ -26,6 +26,11 @@ public class Docent:Personeelslid
         _naam = naam;
         _voornaam = vnaam;
     }
+    public Docent()
+    {
+        _naam = _naam;
+        _voornaam = _voornaam;  
+    }
 
     public override string ToString()
     {

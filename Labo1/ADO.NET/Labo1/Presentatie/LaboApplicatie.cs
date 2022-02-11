@@ -6,7 +6,7 @@ namespace Labo1;
 public partial class LaboApplicatie : Form
 {
     //private readonly ConnectionAdo _connectionAdo =  new();
-   private readonly ConnectionDapper _connectionAdo = new();
+    private readonly ConnectionDapper _connectionAdo = new();
     public String Naam;
     public LaboApplicatie()
     {

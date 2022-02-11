@@ -26,8 +26,7 @@ public class ConnectionDapper
         ReadDocenten();
     }
     public void OpenConnection()
-    {
-       
+    { 
         con = new MySqlConnection(cs);
         try
         {
@@ -71,11 +70,6 @@ public class ConnectionDapper
            "FROM laboapplicatie01.persoon, student " +
            "Where student.Persoon_idPersoon = persoon.idPersoon ; ").ToList();
         Debug.WriteLine(String.Join(" ", studentenNaam));
-
-        foreach (var Student in studentenNaam)
-        {
-            Debug.WriteLine(Student.ToString());
-        }
         CloseConnection();
     }
 
@@ -85,8 +79,8 @@ public class ConnectionDapper
         docentenNaam = con.Query<Docent>("SELECT persoon.naam,persoon.voornaam " +
           "FROM laboapplicatie01.persoon, docenten " +
           "Where docenten.Personeelslid_Persoon_idPersoon = persoon.idPersoon ; ").ToList();
-        Debug.WriteLine(String.Join(" ", docentenNaam));
 
+        Debug.WriteLine(String.Join(" ", docentenNaam));
 
         CloseConnection();
     }
@@ -101,12 +95,6 @@ public class ConnectionDapper
             "inner join student_has_opo " +
             "on opo.idOPO = student_has_opo.OPO_idOPO" +
             " where student_has_opo.Student_Persoon_idPersoon = @id;", new {id = _id}).ToList();
-        foreach (var Student in opoNaam)
-        {
-            Debug.WriteLine(opoNaam.ToString());
-        }
-       
-        
         CloseConnection();
     }
     public void ReadVakkenDocenten()
@@ -114,15 +102,9 @@ public class ConnectionDapper
         OpenConnection();
         opoNaam = con.Query<Opo>("select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
-            "inner join student_has_opo " +
-            "on opo.idOPO = student_has_opo.OPO_idOPO" +
+            "inner join opo_has_docenten   " +
+            "on opo.idOPO = opo_has_docenten.OPO_idOPO" +
             " where opo_has_docenten.Docenten_Personeelslid_Persoon_idPersoon  = @id;", new { id = _id }).ToList();
-
-        foreach (var Student in opoNaam)
-        {
-            Debug.WriteLine(opoNaam.ToString());
-        }
-
         CloseConnection();
     }
     public void GetIdFromNaam(String n, String vm)
@@ -133,12 +115,6 @@ public class ConnectionDapper
             " where persoon.naam like @naam and persoon.voornaam like @vnaam; ";
 
         _id = con.QueryFirstOrDefault<String>(query, new {naam = n, vnaam = vm });
-
-        Debug.WriteLine(_id);
         CloseConnection();
     }
-
-   
-
-
 }
