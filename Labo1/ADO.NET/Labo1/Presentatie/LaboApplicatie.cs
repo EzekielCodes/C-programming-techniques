@@ -1,5 +1,6 @@
 using Labo1.Datalaag;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Labo1;
 
@@ -19,14 +20,14 @@ public partial class LaboApplicatie : Form
     }
     private void FillComboboxDocenten()
     {
-        var docentenLijst = _connectionAdo.docentenNaam;
+        var docentenLijst = _connectionAdo.docentenNaam.OrderBy(o => o.Naam).ToList();
         for (int i = 0; i < docentenLijst.Count; i++)
             docentenComboBox.Items.Add(docentenLijst[i]);
     }
 
     private void FillComboboxStudenten()
     {
-        var studentenLijst = _connectionAdo.studentenNaam;
+        var studentenLijst = _connectionAdo.studentenNaam.OrderBy(o => o.Naam).ToList();
         for (int i = 0; i < studentenLijst.Count; i++)
             studentenComboBox.Items.Add(studentenLijst[i]);
     }
@@ -51,5 +52,10 @@ public partial class LaboApplicatie : Form
         _connectionAdo.ReadVakkenStudenten();
         studentenTextBox.Clear();
         studentenTextBox.Text = String.Join(Environment.NewLine, _connectionAdo.opoNaam);
+    }
+
+    private void LaboApplicatie_Load(object sender, EventArgs e)
+    {
+
     }
 }

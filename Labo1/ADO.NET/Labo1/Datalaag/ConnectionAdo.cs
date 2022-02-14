@@ -142,7 +142,6 @@ public class ConnectionAdo
             _code = dataReader[0].ToString();
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();    
-            _opo = _code + "-" + _naamVaak + "-" + _stp +  "-" + Enum.Parse<Fase>(dataReader[3].ToString()) + "-" + Enum.Parse<Semester>(dataReader[4].ToString());
             
             _opoObject = new Opo(_code, _naamVaak, int.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
             opoNaam.Add(_opoObject);
@@ -175,8 +174,6 @@ public class ConnectionAdo
             _code = dataReader[0].ToString();
             _naamVaak = dataReader[1].ToString();
             _stp = dataReader[2].ToString();
-            _opo = _code + "-" + _naamVaak + "-" + _stp + "-" + Enum.Parse<Fase>(dataReader[3].ToString()) + "-" + Enum.Parse<Semester>(dataReader[4].ToString()); ;
-            //opoNaam.Add(_opo);
             _opoObject = new Opo(_code, _naamVaak, Int32.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
             opoNaam.Add(_opoObject);
         }

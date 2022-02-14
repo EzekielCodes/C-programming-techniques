@@ -123,6 +123,7 @@ partial class LaboApplicatie
             this.Controls.Add(this.label1);
             this.Name = "LaboApplicatie";
             this.Text = "LaboApplicatie";
+            this.Load += new System.EventHandler(this.LaboApplicatie_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

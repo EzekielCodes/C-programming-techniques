@@ -29,7 +29,7 @@ public class Docent:Personeelslid
     public Docent()
     {
         _naam = _naam;
-        _voornaam = _voornaam;  
+        _voornaam = _voornaam;
     }
 
     public override string ToString()

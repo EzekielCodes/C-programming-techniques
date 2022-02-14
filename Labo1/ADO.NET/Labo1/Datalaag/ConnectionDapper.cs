@@ -69,7 +69,7 @@ public class ConnectionDapper
         studentenNaam = con.Query<Student>("SELECT persoon.naam,persoon.voornaam " +
            "FROM laboapplicatie01.persoon, student " +
            "Where student.Persoon_idPersoon = persoon.idPersoon ; ").ToList();
-        Debug.WriteLine(String.Join(" ", studentenNaam));
+        //Debug.WriteLine(String.Join(" ", studentenNaam));
         CloseConnection();
     }
 
@@ -80,7 +80,7 @@ public class ConnectionDapper
           "FROM laboapplicatie01.persoon, docenten " +
           "Where docenten.Personeelslid_Persoon_idPersoon = persoon.idPersoon ; ").ToList();
 
-        Debug.WriteLine(String.Join(" ", docentenNaam));
+       // Debug.WriteLine(String.Join(" ", docentenNaam));
 
         CloseConnection();
     }

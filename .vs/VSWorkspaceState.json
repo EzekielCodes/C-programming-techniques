@@ -4,8 +4,9 @@
     "\\Labo1",
     "\\Labo1\\ADO.NET",
     "\\Labo1\\ADO.NET\\Labo1",
+    "\\Labo1\\ADO.NET\\Labo1\\Datalaag",
     "\\Labo1\\ADO.NET\\Labo1\\Logica"
   ],
-  "SelectedNode": "\\Labo1\\ADO.NET\\Labo1\\Logica\\Opo.cs",
+  "SelectedNode": "\\Labo1\\ADO.NET\\Labo1\\Datalaag\\ConnectionAdo.cs",
   "PreviewInSolutionExplorer": false
 }
