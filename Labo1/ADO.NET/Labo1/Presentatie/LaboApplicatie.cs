@@ -6,8 +6,8 @@ namespace Labo1;
 
 public partial class LaboApplicatie : Form
 {
-    //private readonly ConnectionAdo _connectionAdo =  new();
-    private readonly ConnectionDapper _connectionAdo = new();
+    private readonly ConnectionAdo _connectionAdo =  new();
+    //private readonly ConnectionDapper _connectionAdo = new();
     public String Naam;
     public LaboApplicatie()
     {
@@ -40,7 +40,8 @@ public partial class LaboApplicatie : Form
         _connectionAdo.GetIdFromNaam(tokens[0], tokens[1]);
         _connectionAdo.ReadVakkenDocenten();
         docentenTextBox.Clear();
-        docentenTextBox.Text = String.Join(Environment.NewLine, _connectionAdo.opoNaam);
+        var opoNamen = _connectionAdo.opoNaam.OrderBy(o => o.Code).ToList();
+        docentenTextBox.Text = String.Join(Environment.NewLine, opoNamen);
     }
 
     private void StudentenSelected(object sender, EventArgs e)
@@ -51,7 +52,8 @@ public partial class LaboApplicatie : Form
         _connectionAdo.GetIdFromNaam(tokens[0], tokens[1]);
         _connectionAdo.ReadVakkenStudenten();
         studentenTextBox.Clear();
-        studentenTextBox.Text = String.Join(Environment.NewLine, _connectionAdo.opoNaam);
+        var opoNamen = _connectionAdo.opoNaam.OrderBy(o => o.Code).ToList();
+        studentenTextBox.Text = String.Join(Environment.NewLine, opoNamen);
     }
 
     private void LaboApplicatie_Load(object sender, EventArgs e)
