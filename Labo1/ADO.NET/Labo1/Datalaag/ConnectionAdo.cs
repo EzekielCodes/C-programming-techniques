@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using Labo1.Logica;
+using System.Data;
 namespace Labo1.Datalaag;
 
 public class ConnectionAdo
@@ -27,6 +28,10 @@ public class ConnectionAdo
     private Student _student;
     private Docent _docent;
     public Opo _opoObject;
+    DataSet Docenten = new();
+    DataSet Studenten = new();
+    DataSet Opo = new();
+    DataTable dt = new();
     public void Initialize()
    {
        string connectionString = "SERVER=laboapplicatie01.mysql.database.azure.com;DATABASE=laboapplicatie01;UID=Ezekiel@laboapplicatie01;PASSWORD=Azerty123";
@@ -78,44 +83,71 @@ public class ConnectionAdo
    public void Readdocenten()
    {
         OpenConnection();
+        dt.Clear();
         String query = " SELECT persoon.naam,persoon.voornaam " +
            "FROM laboapplicatie01.persoon, docenten " +
            "Where docenten.Personeelslid_Persoon_idPersoon = persoon.idPersoon ; ";
 
        var cmd = new MySqlCommand(query,_connection);
-       var dataReader = cmd.ExecuteReader();
+       MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+       adapter.Fill(Docenten, "Docenten");
+       dt = Docenten.Tables["Docenten"];
+
+        foreach(DataRow dr in dt.Rows)
+        {
+          Naam = dr[0].ToString();
+          _voornaam = dr[1].ToString();
+          _docent = new Docent(Naam, _voornaam);
+          docentenNaam.Add(_docent);
+        }
+
+        /*var dataReader = cmd.ExecuteReader();
 
        while (dataReader.Read())
        {
-           Naam = dataReader[0].ToString();
-           _voornaam = dataReader[1].ToString();
+          *//* Naam = dataReader[0].ToString();
+           _voornaam = dataReader[1].ToString();*//*
             _docent = new Docent(Naam, _voornaam);
             docentenNaam.Add(_docent);           
        }
         Debug.WriteLine(docentenNaam[0].CompareTo(docentenNaam[2]));
-        dataReader.Close();
+        dataReader.Close();*/
+
         CloseConnection();
    }
 
    public void Readstudenten()
    {
         OpenConnection();
+        dt.Clear();
         String query = " SELECT persoon.naam,persoon.voornaam " +
            "FROM laboapplicatie01.persoon, student " +
            "Where student.Persoon_idPersoon = persoon.idPersoon ; ";
 
        var cmd = new MySqlCommand(query, _connection);
-       var dataReader = cmd.ExecuteReader();
+        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+        adapter.Fill(Studenten, "Student");
+        dt = Studenten.Tables["Student"];
 
-       while (dataReader.Read())
-       {
-           Naam = dataReader[0].ToString();
-           _voornaam = dataReader[1].ToString();
-           _student = new Student(Naam,_voornaam);
-           studentenNaam.Add(_student);
+        foreach (DataRow dr in dt.Rows)
+        {
+            Naam = dr[0].ToString();
+            _voornaam = dr[1].ToString();
+            _student= new Student(Naam, _voornaam);
+            studentenNaam.Add(_student);
         }
-        Debug.WriteLine(String.Join(" ",studentenNaam));
-        dataReader.Close ();
+
+        /*var dataReader = cmd.ExecuteReader();
+
+        while (dataReader.Read())
+        {
+            Naam = dataReader[0].ToString();
+            _voornaam = dataReader[1].ToString();
+            _student = new Student(Naam,_voornaam);
+            studentenNaam.Add(_student);
+         }
+         Debug.WriteLine(String.Join(" ",studentenNaam));
+         dataReader.Close ();*/
         CloseConnection();
    }
 
@@ -123,6 +155,7 @@ public class ConnectionAdo
    {
         OpenConnection();
         opoNaam.Clear();
+        dt.Clear();
         String query = "select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
             "inner join opo_has_docenten " +
@@ -135,7 +168,20 @@ public class ConnectionAdo
         };
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
-        var dataReader = cmd.ExecuteReader();
+        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+        adapter.Fill(Opo, "Opo");
+        dt = Opo.Tables["Opo"];
+
+        foreach (DataRow dr in dt.Rows)
+        {
+            _code = dr[0].ToString();
+            _naamVaak = dr[1].ToString();
+            _stp = dr[2].ToString();
+
+            _opoObject = new Opo(_code, _naamVaak, int.Parse(_stp), Enum.Parse<Fase>(dr[3].ToString()), Enum.Parse<Semester>(dr[4].ToString()));
+            opoNaam.Add(_opoObject);
+        }
+        /*var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
         {
@@ -146,7 +192,7 @@ public class ConnectionAdo
             _opoObject = new Opo(_code, _naamVaak, int.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
             opoNaam.Add(_opoObject);
         }
-        dataReader.Close();
+        dataReader.Close();*/
         CloseConnection();
     }
 
@@ -154,6 +200,7 @@ public class ConnectionAdo
     {
         OpenConnection();
         opoNaam.Clear();
+        dt.Clear();
         String query = "select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
             "inner join student_has_opo " +
@@ -167,7 +214,20 @@ public class ConnectionAdo
 
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
-        var dataReader = cmd.ExecuteReader();
+        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+        adapter.Fill(Opo, "Opo");
+        dt = Opo.Tables["Opo"];
+
+        foreach (DataRow dr in dt.Rows)
+        {
+            _code = dr[0].ToString();
+            _naamVaak = dr[1].ToString();
+            _stp = dr[2].ToString();
+
+            _opoObject = new Opo(_code, _naamVaak, int.Parse(_stp), Enum.Parse<Fase>(dr[3].ToString()), Enum.Parse<Semester>(dr[4].ToString()));
+            opoNaam.Add(_opoObject);
+        }
+        /*var dataReader = cmd.ExecuteReader();
 
         while (dataReader.Read())
         {
@@ -177,7 +237,7 @@ public class ConnectionAdo
             _opoObject = new Opo(_code, _naamVaak, Int32.Parse(_stp), Enum.Parse<Fase>(dataReader[3].ToString()), Enum.Parse<Semester>(dataReader[4].ToString()));
             opoNaam.Add(_opoObject);
         }
-        dataReader.Close();
+        dataReader.Close();*/
         CloseConnection();
     }
 

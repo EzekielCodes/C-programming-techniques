@@ -46,6 +46,7 @@ public partial class LaboApplicatie : Form
         docentenTextBox.Clear();
         var opoNamen = _connectionAdo.opoNaam.OrderBy(o => o.Code).ToList();
         docentenTextBox.Text = String.Join(Environment.NewLine, opoNamen);
+        
     }
 
     private void StudentenSelected(object sender, EventArgs e)
@@ -58,6 +59,7 @@ public partial class LaboApplicatie : Form
         studentenTextBox.Clear();
         var opoNamen = _connectionAdo.opoNaam.OrderBy(o => o.Code).ToList();
         studentenTextBox.Text = String.Join(Environment.NewLine, opoNamen);
+       
     }
 
     private void LaboApplicatie_Load(object sender, EventArgs e)
