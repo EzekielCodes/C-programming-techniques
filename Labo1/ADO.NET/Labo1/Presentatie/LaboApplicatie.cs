@@ -20,14 +20,18 @@ public partial class LaboApplicatie : Form
     }
     private void FillComboboxDocenten()
     {
-        var docentenLijst = _connectionAdo.docentenNaam.OrderBy(o => o.Naam).ToList();
+        var docentenLijst = _connectionAdo.docentenNaam.OrderBy(o => o.Naam)
+            .ThenBy(o => o.Voornaam)
+            .ToList();
         for (int i = 0; i < docentenLijst.Count; i++)
             docentenComboBox.Items.Add(docentenLijst[i]);
     }
 
     private void FillComboboxStudenten()
     {
-        var studentenLijst = _connectionAdo.studentenNaam.OrderBy(o => o.Naam).ToList();
+        var studentenLijst = _connectionAdo.studentenNaam.OrderBy(o => o.Naam)
+            .ThenBy(o => o.Voornaam)
+            .ToList();
         for (int i = 0; i < studentenLijst.Count; i++)
             studentenComboBox.Items.Add(studentenLijst[i]);
     }
