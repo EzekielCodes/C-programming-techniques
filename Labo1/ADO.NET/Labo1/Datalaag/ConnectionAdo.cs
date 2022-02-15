@@ -28,10 +28,10 @@ public class ConnectionAdo
     private Student _student;
     private Docent _docent;
     public Opo _opoObject;
-    DataSet Docenten = new();
-    DataSet Studenten = new();
-    DataSet Opo = new();
-    DataTable dt = new();
+    private readonly DataSet _Docenten = new();
+    private readonly DataSet _Studenten = new();
+    private readonly DataSet _Opo = new();
+    private DataTable _dt = new();
     public void Initialize()
    {
        string connectionString = "SERVER=laboapplicatie01.mysql.database.azure.com;DATABASE=laboapplicatie01;UID=Ezekiel@laboapplicatie01;PASSWORD=Azerty123";
@@ -83,17 +83,17 @@ public class ConnectionAdo
    public void Readdocenten()
    {
         OpenConnection();
-        dt.Clear();
+        _dt.Clear();
         String query = " SELECT persoon.naam,persoon.voornaam " +
            "FROM laboapplicatie01.persoon, docenten " +
            "Where docenten.Personeelslid_Persoon_idPersoon = persoon.idPersoon ; ";
 
        var cmd = new MySqlCommand(query,_connection);
-       MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-       adapter.Fill(Docenten, "Docenten");
-       dt = Docenten.Tables["Docenten"];
+       var adapter = new MySqlDataAdapter(cmd);
+       adapter.Fill(_Docenten, "Docenten");
+       _dt = _Docenten.Tables["Docenten"];
 
-        foreach(DataRow dr in dt.Rows)
+        foreach(DataRow dr in _dt.Rows)
         {
           Naam = dr[0].ToString();
           _voornaam = dr[1].ToString();
@@ -119,17 +119,17 @@ public class ConnectionAdo
    public void Readstudenten()
    {
         OpenConnection();
-        dt.Clear();
+        _dt.Clear();
         String query = " SELECT persoon.naam,persoon.voornaam " +
            "FROM laboapplicatie01.persoon, student " +
            "Where student.Persoon_idPersoon = persoon.idPersoon ; ";
 
        var cmd = new MySqlCommand(query, _connection);
-        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-        adapter.Fill(Studenten, "Student");
-        dt = Studenten.Tables["Student"];
+        var adapter = new MySqlDataAdapter(cmd);
+        adapter.Fill(_Studenten, "Student");
+        _dt = _Studenten.Tables["Student"];
 
-        foreach (DataRow dr in dt.Rows)
+        foreach (DataRow dr in _dt.Rows)
         {
             Naam = dr[0].ToString();
             _voornaam = dr[1].ToString();
@@ -155,7 +155,7 @@ public class ConnectionAdo
    {
         OpenConnection();
         opoNaam.Clear();
-        dt.Clear();
+        _dt.Clear();
         String query = "select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
             "inner join opo_has_docenten " +
@@ -168,11 +168,11 @@ public class ConnectionAdo
         };
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
-        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-        adapter.Fill(Opo, "Opo");
-        dt = Opo.Tables["Opo"];
+        var adapter = new MySqlDataAdapter(cmd);
+        adapter.Fill(_Opo, "Opo");
+        _dt = _Opo.Tables["Opo"];
 
-        foreach (DataRow dr in dt.Rows)
+        foreach (DataRow dr in _dt.Rows)
         {
             _code = dr[0].ToString();
             _naamVaak = dr[1].ToString();
@@ -200,7 +200,7 @@ public class ConnectionAdo
     {
         OpenConnection();
         opoNaam.Clear();
-        dt.Clear();
+        _dt.Clear();
         String query = "select opo.code,opo.naam,opo.stp,opo.fase,opo.Semester " +
             "from opo " +
             "inner join student_has_opo " +
@@ -214,11 +214,11 @@ public class ConnectionAdo
 
         var cmd = new MySqlCommand(query, _connection);
         cmd.Parameters.Add(param);
-        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-        adapter.Fill(Opo, "Opo");
-        dt = Opo.Tables["Opo"];
+        var adapter = new MySqlDataAdapter(cmd);
+        adapter.Fill(_Opo, "Opo");
+        _dt = _Opo.Tables["Opo"];
 
-        foreach (DataRow dr in dt.Rows)
+        foreach (DataRow dr in _dt.Rows)
         {
             _code = dr[0].ToString();
             _naamVaak = dr[1].ToString();

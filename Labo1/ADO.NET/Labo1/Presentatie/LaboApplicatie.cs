@@ -57,7 +57,10 @@ public partial class LaboApplicatie : Form
         _connectionAdo.GetIdFromNaam(tokens[0], tokens[1]);
         _connectionAdo.ReadVakkenStudenten();
         studentenTextBox.Clear();
+        Debug.WriteLine(String.Join(" ", _connectionAdo.opoNaam));
         var opoNamen = _connectionAdo.opoNaam.OrderBy(o => o.Code).ToList();
+        opoNamen.OrderBy(o => o.Code).ToList();
+        Debug.WriteLine(String.Join(" ", opoNamen));
         studentenTextBox.Text = String.Join(Environment.NewLine, opoNamen);
        
     }
