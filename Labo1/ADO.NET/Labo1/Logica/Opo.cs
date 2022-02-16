@@ -11,7 +11,12 @@ public class Opo
     public string Code { get; set; }
     private Fase fase { get; set; }
     private Semester Semester { get; set; }
-    public int Stp { get; set; }
+    private int _stp;
+    public int Stp
+    {
+        get { return _stp; }
+        set { _stp = value; }
+    }
 
     public string Naam { get; set; }
 

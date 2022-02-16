@@ -178,6 +178,7 @@ public class ConnectionAdo
             _naamVaak = dr[1].ToString();
             _stp = dr[2].ToString();
 
+            Debug.WriteLine(dr[0].ToString());
             _opoObject = new Opo(_code, _naamVaak, int.Parse(_stp), Enum.Parse<Fase>(dr[3].ToString()), Enum.Parse<Semester>(dr[4].ToString()));
             opoNaam.Add(_opoObject);
         }
