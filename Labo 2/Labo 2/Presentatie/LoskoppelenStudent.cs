@@ -22,7 +22,7 @@ public partial class LoskoppelenStudent : Form
         studentcontrol = new();
         InitializeComponent();
         FillStudenten();
-        FillOpo();
+        //FillOpo();
     }
 
     public void FillStudenten()
@@ -59,5 +59,6 @@ public partial class LoskoppelenStudent : Form
         comboBoxOpo.Items.Clear();
         var student = (Student)comboBoxStudenten.SelectedItem;
         Debug.WriteLine(String.Join(" ", student.OpoList));
+        comboBoxOpo.Items.Add(String.Join(" ", student.OpoList));
     }
 }

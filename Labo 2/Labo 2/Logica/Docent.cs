@@ -72,7 +72,7 @@ public class Docent : Personeelslid,IComparable<Docent>
 
     public void VerwijderOPO(Opo opo)
     {
-       if (OpoList.Contains(opo))
+       if (OpoList.Any(code => code.Code == opo.Code))
         {
             
             OpoList.Remove(opo);
