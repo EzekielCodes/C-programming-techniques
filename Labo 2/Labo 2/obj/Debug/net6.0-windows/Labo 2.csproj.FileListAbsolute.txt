@@ -1,0 +1,51 @@
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Labo 2.exe
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Labo 2.deps.json
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Labo 2.runtimeconfig.json
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Labo 2.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\ref\Labo 2.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Labo 2.pdb
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Humanizer.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\MySqlConnector.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.csproj.AssemblyReference.cache
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.KoppelDocentOpo.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.KoppelStudentOpo.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.Overzicht.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.VoegDocentToe.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.VoegOpoToe.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.VoegStudentToe.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.csproj.GenerateResource.cache
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.AssemblyInfoInputs.cache
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.AssemblyInfo.cs
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.csproj.CoreCompileInputs.cache
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.csproj.CopyComplete
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\ref\Labo 2.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.pdb
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo 2.genruntimeconfig.cache
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\SharpRepository.EfCoreRepository.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\SharpRepository.Repository.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.LosKoppelenDocent.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\obj\Debug\net6.0-windows\Labo_2.LoskoppelenStudent.resources
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Castle.Core.dll
+C:\Users\Guest\c# programming techniques\Labo 2\Labo 2\bin\Debug\net6.0-windows\Microsoft.EntityFrameworkCore.Proxies.dll
