@@ -27,6 +27,7 @@ public partial class Overzicht : Form
 
     public void FillStudenten()
     {
+        comboBoxStudenten.Items.Clear();
         var lijst = studentcontrol.GetStudents().OrderBy(o => o.Familienaam)
                 .ThenBy(o => o.Voornaam)
                 .ToList();
@@ -38,6 +39,7 @@ public partial class Overzicht : Form
     
     public void FillDocenten()
     {
+        comboBoxDocenten.Items.Clear(); 
         var lijst = docentcontrol.GetDocent().OrderBy(o => o.Familienaam)
                 .ThenBy(o => o.Voornaam)
                 .ToList();
@@ -100,30 +102,51 @@ public partial class Overzicht : Form
     {
         VoegOpoToe vg = new();
         vg.ShowDialog();
+        studentcontrol = new StudentController();
+        docentcontrol = new DocentController();
+        FillStudenten();
+        FillDocenten();
     }
 
     private void KoppelStudent_Click(object sender, EventArgs e)
     {
         KoppelStudentOpo vg = new();
         vg.ShowDialog();
+        studentcontrol = new StudentController();
+        docentcontrol = new DocentController();
+        FillStudenten();
+        FillDocenten();
     }
 
     private void KoppelDocenten_Click(object sender, EventArgs e)
     {
         KoppelDocentOpo vg = new();
         vg.ShowDialog();
+        studentcontrol = new StudentController();
+        docentcontrol = new DocentController();
+        FillStudenten();
+        FillDocenten();
     }
 
     private void DocentLoskoppelen_Click(object sender, EventArgs e)
     {
         LosKoppelenDocent vg = new();
         vg.ShowDialog();
+        studentcontrol = new StudentController();
+        docentcontrol = new DocentController();
+        FillStudenten();
+        FillDocenten();
     }
 
     private void StudentLoskoppelen_Click(object sender, EventArgs e)
     {
         LoskoppelenStudent vg = new();
         vg.ShowDialog();
+        studentcontrol = new StudentController();
+        docentcontrol = new DocentController();
+        FillStudenten();
+        FillDocenten();
+
         //Application.Restart();
     }
 
