@@ -13,12 +13,15 @@ using System.Windows.Forms;
 namespace Labo_2;
 public partial class KoppelStudentOpo : Form
 {
-    protected OpoController opocontrol;
-    protected StudentController studentcontrol;
-    public KoppelStudentOpo()
+   
+    private readonly IOpoController _opocontrol;
+    private readonly IStudentController _studentcontrol;
+    public KoppelStudentOpo(IStudentController x, IOpoController y)
     {
-        opocontrol = new();
-        studentcontrol = new();
+        _opocontrol = y;
+        _studentcontrol = x;
+      /*  opocontrol = new();
+        studentcontrol = new();*/
         InitializeComponent();
         FillStudenten();
         FillOpo();
@@ -26,7 +29,7 @@ public partial class KoppelStudentOpo : Form
 
     public void FillStudenten()
     {
-        var lijst = studentcontrol.GetStudents().OrderBy(o => o.Familienaam)
+        var lijst = _studentcontrol.GetStudents().OrderBy(o => o.Familienaam)
                .ThenBy(o => o.Voornaam)
                .ToList();
         for (int i = 0; i < lijst.Count; i++)
@@ -35,7 +38,7 @@ public partial class KoppelStudentOpo : Form
 
     public void FillOpo()
     {
-        var lijst = opocontrol.GetOpo().OrderBy(o => o.Code);
+        var lijst = _opocontrol.GetOpo().OrderBy(o => o.Code);
         foreach(var o in lijst)
         {
             comboBoxOpo.Items.Add(o);
@@ -44,7 +47,7 @@ public partial class KoppelStudentOpo : Form
 
     private void buttonKoppel_Click(object sender, EventArgs e)
     {
-        studentcontrol.Addopo((Logica.Student)comboBoxStudenten.SelectedItem, (Logica.Opo)comboBoxOpo.SelectedItem);
+        _studentcontrol.Addopo((Logica.Student)comboBoxStudenten.SelectedItem, (Logica.Opo)comboBoxOpo.SelectedItem);
         MessageBox.Show("Student is gekoppeled aan Opo");
 
     }

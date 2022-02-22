@@ -12,12 +12,16 @@ using System.Windows.Forms;
 namespace Labo_2;
 public partial class KoppelDocentOpo : Form
 {
-    protected OpoController opocontrol;
-    protected DocentController docentcontrol;
-    public KoppelDocentOpo()
+    private readonly IOpoController _opocontrol;
+    private readonly IDocentController _docentcontrol;
+   /* protected OpoController opocontrol;
+    protected DocentController docentcontrol;*/
+    public KoppelDocentOpo(IDocentController x, IOpoController y)
     {
-        docentcontrol = new();
-        opocontrol = new();
+        _opocontrol = y;
+        _docentcontrol = x;
+        /*docentcontrol = new();
+        opocontrol = new();*/
         InitializeComponent();
         FillDocenten();
         FillOpo();
@@ -25,7 +29,7 @@ public partial class KoppelDocentOpo : Form
 
     public void FillDocenten()
     {
-        var lijst = docentcontrol.GetDocent().OrderBy(o => o.Familienaam)
+        var lijst = _docentcontrol.GetDocent().OrderBy(o => o.Familienaam)
                .ThenBy(o => o.Voornaam)
                .ToList();
         for (int i = 0; i < lijst.Count; i++)
@@ -34,7 +38,7 @@ public partial class KoppelDocentOpo : Form
 
     public void FillOpo()
     {
-        var lijst = opocontrol.GetOpo().OrderBy(o => o.Code);
+        var lijst = _opocontrol.GetOpo().OrderBy(o => o.Code);
         foreach (var o in lijst)
         {
             comboBoxOpo.Items.Add(o);
@@ -43,7 +47,7 @@ public partial class KoppelDocentOpo : Form
 
     private void KoppelDocenten_Click(object sender, EventArgs e)
     {
-        docentcontrol.Addopo((Logica.Docent)comboBoxDocenten.SelectedItem, (Logica.Opo)comboBoxOpo.SelectedItem);
+        _docentcontrol.Addopo((Logica.Docent)comboBoxDocenten.SelectedItem, (Logica.Opo)comboBoxOpo.SelectedItem);
         MessageBox.Show("Docent is gekoppeled aan Opo");
 
     }

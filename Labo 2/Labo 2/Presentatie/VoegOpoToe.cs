@@ -14,10 +14,12 @@ using System.Windows.Forms;
 namespace Labo_2;
 public partial class VoegOpoToe : Form
 {
-    protected OpoController opocontrol;
-    public VoegOpoToe()
+    private readonly IOpoController _opocontrol;
+   /* protected OpoController opocontrol;*/
+    public VoegOpoToe(IOpoController x)
     {
-        opocontrol = new();
+        _opocontrol = x;
+       /* opocontrol = new();*/
         InitializeComponent();
         foreach(var fase in Enum.GetValues(typeof(Fase)))
         {
@@ -45,7 +47,7 @@ public partial class VoegOpoToe : Form
         }
         else
         {
-            opocontrol.AddOpo(new Logica.Opo(code,naam,Int32.Parse(stp), Enum.Parse<Fase>(fase), Enum.Parse<Semester>(semester)));
+            _opocontrol.AddOpo(new Logica.Opo(code,naam,Int32.Parse(stp), Enum.Parse<Fase>(fase), Enum.Parse<Semester>(semester)));
             MessageBox.Show("Opo toegevoegd in database");
             this.Close();
         }

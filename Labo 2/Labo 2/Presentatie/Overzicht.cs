@@ -10,16 +10,19 @@ namespace Labo_2;
 
 public partial class Overzicht : Form
 {
-    private readonly IStudentController studentControll;
-    private readonly IOpoController _opocontroll;
-    protected StudentController studentcontrol;
-    protected DocentController docentcontrol;
-    public Overzicht()
+    private readonly IStudentController _studentControl;
+    private readonly IOpoController _opocontrol;
+    private readonly IDocentController _docentcontrol;
+    /*protected StudentController studentcontrol;
+    protected DocentController docentcontrol;*/
+    public Overzicht(IStudentController x, IOpoController y, IDocentController z)
     {
-        
+        _studentControl = x;
+        _opocontrol = y;
+        _docentcontrol = z;
         InitializeComponent();
-        studentcontrol = new StudentController();
-        docentcontrol = new DocentController();
+        /*studentcontrol = new StudentController();
+        docentcontrol = new DocentController();*/
         Listview();
         FillStudenten();
         FillDocenten();
@@ -28,7 +31,7 @@ public partial class Overzicht : Form
     public void FillStudenten()
     {
         comboBoxStudenten.Items.Clear();
-        var lijst = studentcontrol.GetStudents().OrderBy(o => o.Familienaam)
+        var lijst = _studentControl.GetStudents().OrderBy(o => o.Familienaam)
                 .ThenBy(o => o.Voornaam)
                 .ToList();
         
@@ -40,7 +43,7 @@ public partial class Overzicht : Form
     public void FillDocenten()
     {
         comboBoxDocenten.Items.Clear(); 
-        var lijst = docentcontrol.GetDocent().OrderBy(o => o.Familienaam)
+        var lijst = _docentcontrol.GetDocent().OrderBy(o => o.Familienaam)
                 .ThenBy(o => o.Voornaam)
                 .ToList();
         for (int i = 0; i < lijst.Count; i++)
@@ -70,14 +73,14 @@ public partial class Overzicht : Form
 
     private void VoegStudent(object sender, EventArgs e)
     {
-        VoegStudentToe vg = new();
+        VoegStudentToe vg = new(_studentControl);
         vg.ShowDialog();
         
     }
 
     private void VoegDocent(object sender, EventArgs e)
     {
-        VoegDocentToe vg = new();
+        VoegDocentToe vg = new(_docentcontrol);
         vg.ShowDialog();
 
     }
@@ -100,50 +103,50 @@ public partial class Overzicht : Form
 
     private void VoegOpo(object sender, EventArgs e)
     {
-        VoegOpoToe vg = new();
+        VoegOpoToe vg = new(_opocontrol);
         vg.ShowDialog();
-        studentcontrol = new StudentController();
-        docentcontrol = new DocentController();
+       /* _studentControl = new StudentController();
+        docentcontrol = new DocentController();*/
         FillStudenten();
         FillDocenten();
     }
 
     private void KoppelStudent_Click(object sender, EventArgs e)
     {
-        KoppelStudentOpo vg = new();
+        KoppelStudentOpo vg = new(_studentControl,_opocontrol);
         vg.ShowDialog();
-        studentcontrol = new StudentController();
-        docentcontrol = new DocentController();
+        /*studentcontrol = new StudentController();
+        docentcontrol = new DocentController();*/
         FillStudenten();
         FillDocenten();
     }
 
     private void KoppelDocenten_Click(object sender, EventArgs e)
     {
-        KoppelDocentOpo vg = new();
+        KoppelDocentOpo vg = new(_docentcontrol,_opocontrol);
         vg.ShowDialog();
-        studentcontrol = new StudentController();
-        docentcontrol = new DocentController();
+        /*studentcontrol = new StudentController();
+        docentcontrol = new DocentController();*/
         FillStudenten();
         FillDocenten();
     }
 
     private void DocentLoskoppelen_Click(object sender, EventArgs e)
     {
-        LosKoppelenDocent vg = new();
+        LosKoppelenDocent vg = new(_docentcontrol,_opocontrol);
         vg.ShowDialog();
-        studentcontrol = new StudentController();
-        docentcontrol = new DocentController();
+       /* _studentcontrol = new StudentController();
+        _docentcontrol = new DocentController();*/
         FillStudenten();
         FillDocenten();
     }
 
     private void StudentLoskoppelen_Click(object sender, EventArgs e)
     {
-        LoskoppelenStudent vg = new();
+        LoskoppelenStudent vg = new(_studentControl,_opocontrol);
         vg.ShowDialog();
-        studentcontrol = new StudentController();
-        docentcontrol = new DocentController();
+        /*studentcontrol = new StudentController();
+        docentcontrol = new DocentController();*/
         FillStudenten();
         FillDocenten();
 

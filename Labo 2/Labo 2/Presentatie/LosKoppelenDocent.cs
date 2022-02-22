@@ -14,12 +14,16 @@ using System.Windows.Forms;
 namespace Labo_2;
 public partial class LosKoppelenDocent : Form
 {
-    protected OpoController opocontrol;
-    protected DocentController docentcontrol;
-    public LosKoppelenDocent()
+    private readonly IOpoController _opocontrol;
+    private readonly IDocentController _docentcontrol;
+    /*protected OpoController opocontrol;
+    protected DocentController docentcontrol;*/
+    public LosKoppelenDocent(IDocentController x,IOpoController y)
     {
-        opocontrol = new();
-        docentcontrol = new();
+        _opocontrol = y;
+        _docentcontrol = x;
+        /*opocontrol = new();
+        docentcontrol = new();*/
         InitializeComponent();
         FillDocenten();
         //FillOpo();
@@ -27,7 +31,7 @@ public partial class LosKoppelenDocent : Form
 
     public void FillDocenten()
     {
-        var lijst = docentcontrol.GetDocent().OrderBy(o => o.Familienaam)
+        var lijst = _docentcontrol.GetDocent().OrderBy(o => o.Familienaam)
                .ThenBy(o => o.Voornaam)
                .ToList();
         for (int i = 0; i < lijst.Count; i++)
@@ -36,7 +40,7 @@ public partial class LosKoppelenDocent : Form
 
     public void FillOpo()
     {
-        var lijst = opocontrol.GetOpo().OrderBy(o => o.Code);
+        var lijst = _opocontrol.GetOpo().OrderBy(o => o.Code);
         foreach (var o in lijst)
         {
             comboBoxOpo.Items.Add(o);
@@ -50,7 +54,7 @@ public partial class LosKoppelenDocent : Form
 
     private void LosKoppelen_Click(object sender, EventArgs e)
     {
-        docentcontrol.RemoveOpo((Logica.Docent)comboBoxDocenten.SelectedItem, (Logica.Opo)comboBoxOpo.SelectedItem);
+        _docentcontrol.RemoveOpo((Logica.Docent)comboBoxDocenten.SelectedItem, (Logica.Opo)comboBoxOpo.SelectedItem);
         MessageBox.Show("Docent is Los gekoppeled aan Opo");
     }
 

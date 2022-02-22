@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Labo_2.LogicLayer;
 
-public class DocentController : BaseController
+public class DocentController : BaseController, IDocentController
 {
     protected EfCoreRepository<Docent> repoDocent;
     public DocentController()

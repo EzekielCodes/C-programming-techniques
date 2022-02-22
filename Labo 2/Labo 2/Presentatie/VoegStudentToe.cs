@@ -12,10 +12,13 @@ using System.Windows.Forms;
 namespace Labo_2;
 public partial class VoegStudentToe : Form
 {
+   
+    private readonly IStudentController _studentcontrol;
     protected StudentController studentcontrol;
-    public VoegStudentToe()
+    public VoegStudentToe(IStudentController x)
     {
-        studentcontrol = new();
+        _studentcontrol = x;
+        /*studentcontrol = new();*/
         InitializeComponent();
 
     }
@@ -37,7 +40,7 @@ public partial class VoegStudentToe : Form
         }
         else
         {
-            studentcontrol.AddStudent(new Logica.Student(vnaam, fnaam, Snr));
+            _studentcontrol.AddStudent(new Logica.Student(vnaam, fnaam, Snr));
             MessageBox.Show("Student toegevoegd in database");
             this.Close();
         }

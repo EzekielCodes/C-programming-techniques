@@ -12,10 +12,12 @@ using System.Windows.Forms;
 namespace Labo_2;
 public partial class VoegDocentToe : Form
 {
+    private readonly IDocentController _docentcontrol;
     protected DocentController docentcontrol;
-    public VoegDocentToe()
+    public VoegDocentToe(IDocentController x)
     {
-        docentcontrol = new();
+        _docentcontrol = x;
+  /*      docentcontrol = new();*/
         InitializeComponent();
     }
 
@@ -36,7 +38,7 @@ public partial class VoegDocentToe : Form
         }
         else
         {
-            docentcontrol.AddDocent(new Logica.Docent(vnaam, fnaam, Snr));
+            _docentcontrol.AddDocent(new Logica.Docent(vnaam, fnaam, Snr));
             MessageBox.Show("Docent toegevoegd in database");
             this.Close();
         }
