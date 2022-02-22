@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,23 +62,26 @@ public class Docent : Personeelslid,IComparable<Docent>
     }
 
     public void VoegOPOToe(Opo opo)
-    { 
+    {
+        
         if (!OpoList.Contains(opo))
-        {
-                OpoList.Add(opo);
-         }
-        OpoList.Sort();
-
+        { 
+             OpoList.Add(opo);
+        }
+        OpoList.OrderBy(o => o.Code);
     }
 
     public void VerwijderOPO(Opo opo)
     {
-       if (OpoList.Any(code => code.Code == opo.Code))
+        int index = OpoList.FindIndex(o => o.Id == opo.Id);
+        
+        Debug.WriteLine(index);
+        
+        if (OpoList.Any(code => code.Id == opo.Id))
         {
-            
-            OpoList.Remove(opo);
+            OpoList.RemoveAt(index);
         }
-        OpoList.Sort();
+        OpoList.OrderBy(o => o.Code);
     }
 
     public int CompareTo(Docent? other)

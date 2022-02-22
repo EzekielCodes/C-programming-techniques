@@ -13,7 +13,7 @@ public class DocentController : BaseController
     protected EfCoreRepository<Docent> repoDocent;
     public DocentController()
     {
-        repoDocent = new EfCoreRepository<Docent>(m);
+        repoDocent = new EfCoreRepository<Docent>((Microsoft.EntityFrameworkCore.DbContext)m);
     }
 
     public List<Docent> GetDocent()
@@ -37,5 +37,4 @@ public class DocentController : BaseController
         repoDocent.Get(docent.Id).VerwijderOPO(opo);
         repoDocent.Update(docent);
     }
-
 }

@@ -7,12 +7,12 @@ using Labo_2.Logica;
 using SharpRepository.EfCoreRepository;
 namespace Labo_2.LogicLayer;
 
-public class StudentController : BaseController
+public class StudentController : BaseController, IStudentController
 {
     protected EfCoreRepository<Student> repoStudent;
     public StudentController()
     {
-        repoStudent = new EfCoreRepository<Student>(m);
+        repoStudent = new EfCoreRepository<Student>((Microsoft.EntityFrameworkCore.DbContext)m);
     }
 
     public List<Student> GetStudents()
@@ -24,25 +24,21 @@ public class StudentController : BaseController
     {
         repoStudent.Add(s);
     }
-    
+
     public void Addopo(Student student, Opo opo)
     {
         repoStudent.Get(student.Id).VoegOPOToe(opo);
         repoStudent.Update(student);
+        repoStudent.GetAll();
     }
 
     public void RemoveOpo(Student student, Opo opo)
     {
-        repoStudent.GetAll();
         repoStudent.Get(student.Id).VerwijderOPO(opo);
         repoStudent.Update(student);
+        repoStudent.GetAll();
     }
-
-   
- 
-
 }
-
 
 
     

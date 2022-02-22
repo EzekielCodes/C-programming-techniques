@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,7 +72,15 @@ public class Student : Persoon, IComparable<Student>
 
     public void VerwijderOPO(Opo opo)
     {
-       OpoList.Remove(opo);
+        int index = OpoList.FindIndex(o => o.Id == opo.Id);
+
+        Debug.WriteLine(index);
+
+        if (OpoList.Any(code => code.Id == opo.Id))
+        {
+            OpoList.RemoveAt(index);
+        }
+        OpoList.OrderBy(o => o.Code);
 
     }
 

@@ -4,11 +4,14 @@ using Labo_2.LogicLayer;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Linq;
 
 namespace Labo_2;
 
 public partial class Overzicht : Form
 {
+    private readonly IStudentController studentControll;
+    private readonly IOpoController _opocontroll;
     protected StudentController studentcontrol;
     protected DocentController docentcontrol;
     public Overzicht()
@@ -52,16 +55,15 @@ public partial class Overzicht : Form
         listViewStudenten.Items.Clear();
         var student = (Student)comboBoxStudenten.SelectedItem;
         Debug.WriteLine(String.Join(" ", student.OpoList));
-        foreach(Opo s in student.OpoList)
+        foreach (var (s, item) in from s in student.OpoList.OrderBy(o => o.Code)
+                                  let item = new ListViewItem()
+                                  select (s, item))
         {
-            ListViewItem item = new ListViewItem();
             item.Text = s.Code;
             item.SubItems.Add(s.Naam);
             item.SubItems.Add(s.Stp.ToString());
-
             listViewStudenten.Items.Add(item);
         }
-
     }
 
     private void VoegStudent(object sender, EventArgs e)
@@ -83,13 +85,13 @@ public partial class Overzicht : Form
         listViewDocenten.Items.Clear();
         var docent = (Docent)comboBoxDocenten.SelectedItem;
         Debug.WriteLine(String.Join(" ", docent.OpoList));
-        foreach (Opo s in docent.OpoList)
+        foreach (var (s, item) in from s in docent.OpoList.OrderBy(o => o.Code)
+                                  let item = new ListViewItem()
+                                  select (s, item))
         {
-            ListViewItem item = new ListViewItem();
             item.Text = s.Code;
             item.SubItems.Add(s.Naam);
             item.SubItems.Add(s.Stp.ToString());
-
             listViewDocenten.Items.Add(item);
         }
     }
@@ -122,6 +124,7 @@ public partial class Overzicht : Form
     {
         LoskoppelenStudent vg = new();
         vg.ShowDialog();
+        //Application.Restart();
     }
 
     private void listView1_SelectedIndexChanged(object sender, EventArgs e)

@@ -14,6 +14,8 @@ using System.Windows.Forms;
 namespace Labo_2;
 public partial class LoskoppelenStudent : Form
 {
+    private readonly IStudentController studentControll;
+    private readonly IOpoController opocontroll;
     protected OpoController opocontrol;
     protected StudentController studentcontrol;
     public LoskoppelenStudent()
@@ -27,6 +29,7 @@ public partial class LoskoppelenStudent : Form
 
     public void FillStudenten()
     {
+     
         var lijst = studentcontrol.GetStudents().OrderBy(o => o.Familienaam)
                .ThenBy(o => o.Voornaam)
                .ToList();
@@ -59,6 +62,6 @@ public partial class LoskoppelenStudent : Form
         comboBoxOpo.Items.Clear();
         var student = (Student)comboBoxStudenten.SelectedItem;
         Debug.WriteLine(String.Join(" ", student.OpoList));
-        comboBoxOpo.Items.Add(String.Join(" ", student.OpoList));
+        comboBoxOpo.DataSource = student.OpoList;
     }
 }

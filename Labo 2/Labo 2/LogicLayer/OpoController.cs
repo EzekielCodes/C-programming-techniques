@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Labo_2.LogicLayer;
 
-public  class OpoController:BaseController
+public class OpoController : BaseController, IOpoController
 {
     protected EfCoreRepository<Opo> repoOpo;
 
     public OpoController()
     {
-        repoOpo = new EfCoreRepository<Opo>(m);
+        repoOpo = new EfCoreRepository<Opo>((Microsoft.EntityFrameworkCore.DbContext)m);
     }
 
     public List<Opo> GetOpo()

@@ -10,11 +10,10 @@ namespace Labo_2.LogicLayer;
 
 public class BaseController
 {
-    protected Model m;
+    protected IModel m;
    
     public BaseController()
     {
         m = new Model(); 
     }
-
 }

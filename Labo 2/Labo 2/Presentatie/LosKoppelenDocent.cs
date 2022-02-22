@@ -22,7 +22,7 @@ public partial class LosKoppelenDocent : Form
         docentcontrol = new();
         InitializeComponent();
         FillDocenten();
-        FillOpo();
+        //FillOpo();
     }
 
     public void FillDocenten()
@@ -56,9 +56,9 @@ public partial class LosKoppelenDocent : Form
 
     private void FillOpoDocenten(object sender, EventArgs e)
     {
-        /*comboBoxOpo.Items.Clear();
+        comboBoxOpo.Items.Clear();
         var docent = (Docent)comboBoxDocenten.SelectedItem;
         Debug.WriteLine(String.Join(" ", docent.OpoList));
-        comboBoxOpo.Items.Add(String.Join(" ", docent.OpoList));*/
+        comboBoxOpo.DataSource = docent.OpoList;
     }
 }
