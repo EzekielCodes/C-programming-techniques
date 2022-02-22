@@ -1,8 +1,10 @@
-﻿using Labo_2.LogicLayer;
+﻿using Labo_2.Logica;
+using Labo_2.LogicLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,17 +16,14 @@ public partial class KoppelDocentOpo : Form
 {
     private readonly IOpoController _opocontrol;
     private readonly IDocentController _docentcontrol;
-   /* protected OpoController opocontrol;
-    protected DocentController docentcontrol;*/
+
     public KoppelDocentOpo(IDocentController x, IOpoController y)
     {
         _opocontrol = y;
         _docentcontrol = x;
-        /*docentcontrol = new();
-        opocontrol = new();*/
         InitializeComponent();
         FillDocenten();
-        FillOpo();
+        //FillOpo();
     }
 
     public void FillDocenten()
@@ -50,5 +49,17 @@ public partial class KoppelDocentOpo : Form
         _docentcontrol.Addopo((Logica.Docent)comboBoxDocenten.SelectedItem, (Logica.Opo)comboBoxOpo.SelectedItem);
         MessageBox.Show("Docent is gekoppeled aan Opo");
 
+    }
+
+    private void FillDocentEvent(object sender, EventArgs e)
+    {
+ 
+        List<Opo> opos = _opocontrol.GetOpo();
+        var docent = (Docent)comboBoxDocenten.SelectedItem;
+        Debug.WriteLine(String.Join(" ", docent.OpoList));
+        List<Opo> opoList = opos
+            .Where(w => !docent.OpoList.Contains(w))
+            .ToList();
+        comboBoxOpo.DataSource = opoList;
     }
 }

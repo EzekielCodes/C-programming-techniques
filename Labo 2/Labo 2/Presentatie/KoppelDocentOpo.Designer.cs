@@ -42,6 +42,7 @@ partial class KoppelDocentOpo
             this.comboBoxDocenten.Name = "comboBoxDocenten";
             this.comboBoxDocenten.Size = new System.Drawing.Size(343, 33);
             this.comboBoxDocenten.TabIndex = 0;
+            this.comboBoxDocenten.SelectedIndexChanged += new System.EventHandler(this.FillDocentEvent);
             // 
             // label1
             // 

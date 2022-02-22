@@ -1,4 +1,5 @@
-﻿using Labo_2.LogicLayer;
+﻿using Labo_2.Logica;
+using Labo_2.LogicLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,29 +21,25 @@ public partial class KoppelStudentOpo : Form
     {
         _opocontrol = y;
         _studentcontrol = x;
-      /*  opocontrol = new();
-        studentcontrol = new();*/
         InitializeComponent();
         FillStudenten();
-        FillOpo();
+        //FillOpo();
     }
 
     public void FillStudenten()
     {
-        var lijst = _studentcontrol.GetStudents().OrderBy(o => o.Familienaam)
+        var student = _studentcontrol.GetStudents().OrderBy(o => o.Familienaam)
                .ThenBy(o => o.Voornaam)
                .ToList();
-        for (int i = 0; i < lijst.Count; i++)
-            comboBoxStudenten.Items.Add(lijst[i]);
+        for (int i = 0; i < student.Count; i++)
+            comboBoxStudenten.Items.Add(student[i]);
     }
 
     public void FillOpo()
     {
-        var lijst = _opocontrol.GetOpo().OrderBy(o => o.Code);
-        foreach(var o in lijst)
-        {
-            comboBoxOpo.Items.Add(o);
-        }
+        List<Opo> opos = _opocontrol.GetOpo();
+        var opo = _opocontrol.GetOpo().OrderBy(o => o.Code);
+        comboBoxOpo.DataSource = opos.Except(opo).ToList();
     }
 
     private void buttonKoppel_Click(object sender, EventArgs e)
@@ -55,5 +52,17 @@ public partial class KoppelStudentOpo : Form
     private void KoppelStudentOpo_Load(object sender, EventArgs e)
     {
 
+    }
+
+    private void FillOpoEvent(object sender, EventArgs e)
+    {
+        List<Opo> opos = _opocontrol.GetOpo();
+        var student = (Student)comboBoxStudenten.SelectedItem;
+        Debug.WriteLine(String.Join(" ", student.OpoList));
+        List<Opo> opoList = opos
+            .Where(w => !student.OpoList.Contains(w))
+            .ToList();
+
+        comboBoxOpo.DataSource = opoList;
     }
 }

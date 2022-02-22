@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Labo_2.Logica;
 
-public class Opo: IComparable<Opo>
+public class Opo: IComparable<Opo>,IEquatable<Opo>
 {
     public string Code { get; set; }
     public Fase fase { get; set; }
@@ -99,5 +99,12 @@ public class Opo: IComparable<Opo>
             return Code.CompareTo((other as Opo).Code);
         else
             throw new ArgumentException("");
+    }
+
+    public bool Equals(Opo? other)
+    {
+        if (other is null)
+            return false;
+        return Code == other.Code && fase == other.fase && Naam == other.Naam;
     }
 }

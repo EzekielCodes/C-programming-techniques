@@ -60,6 +60,7 @@ partial class KoppelStudentOpo
             this.comboBoxStudenten.Name = "comboBoxStudenten";
             this.comboBoxStudenten.Size = new System.Drawing.Size(297, 33);
             this.comboBoxStudenten.TabIndex = 2;
+            this.comboBoxStudenten.SelectedIndexChanged += new System.EventHandler(this.FillOpoEvent);
             // 
             // comboBoxOpo
             // 
