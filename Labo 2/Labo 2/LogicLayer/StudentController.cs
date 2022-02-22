@@ -38,6 +38,12 @@ public class StudentController : BaseController, IStudentController
         repoStudent.Update(student);
         repoStudent.GetAll();
     }
+
+    public void DeleteOpo(Student s)
+    {
+        repoStudent.Delete(s);
+        repoStudent.Update(s);
+    }
 }
 
 

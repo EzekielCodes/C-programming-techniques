@@ -26,4 +26,10 @@ public class OpoController : BaseController, IOpoController
     {
         repoOpo.Add(s);
     }
+
+    public void DeleteOpo(Opo s)
+    {
+        repoOpo.Delete(s);
+        repoOpo.Update(s);
+    }
 }

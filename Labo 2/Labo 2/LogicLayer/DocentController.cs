@@ -37,4 +37,10 @@ public class DocentController : BaseController, IDocentController
         repoDocent.Get(docent.Id).VerwijderOPO(opo);
         repoDocent.Update(docent);
     }
+
+    public void Delete(Docent d)
+    {
+        repoDocent.Delete(d);
+        repoDocent.Update(d);
+    }
 }
