@@ -59,7 +59,9 @@ public partial class KoppelDocentOpo : Form
         Debug.WriteLine(String.Join(" ", docent.OpoList));
         List<Opo> opoList = opos
             .Where(w => !docent.OpoList.Contains(w))
+            .OrderBy(o => o.Code)
             .ToList();
+
         comboBoxOpo.DataSource = opoList;
     }
 }

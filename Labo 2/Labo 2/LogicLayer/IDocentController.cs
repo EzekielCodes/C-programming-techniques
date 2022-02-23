@@ -8,4 +8,6 @@ public interface IDocentController
     void Addopo(Docent docent, Opo opo);
     List<Docent> GetDocent();
     void RemoveOpo(Docent docent, Opo opo);
+
+    void DeleteDocent(Docent d);
 }

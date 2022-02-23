@@ -61,9 +61,10 @@ public partial class LoskoppelenStudent : Form
 
     private void FillOpoStudenten(object sender, EventArgs e)
     {
-        comboBoxOpo.Items.Clear();
+        
         var student = (Student)comboBoxStudenten.SelectedItem;
         Debug.WriteLine(String.Join(" ", student.OpoList));
-        comboBoxOpo.DataSource = student.OpoList;
+        var studentOpo = student.OpoList.OrderBy(o => o.Code).ToList();
+        comboBoxOpo.DataSource = studentOpo;
     }
 }

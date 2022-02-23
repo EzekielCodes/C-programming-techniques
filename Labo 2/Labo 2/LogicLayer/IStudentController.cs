@@ -8,4 +8,5 @@ public interface IStudentController
     void AddStudent(Student s);
     List<Student> GetStudents();
     void RemoveOpo(Student student, Opo opo);
+    void DeleteStudent(Student s);
 }

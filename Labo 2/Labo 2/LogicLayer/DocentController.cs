@@ -38,7 +38,7 @@ public class DocentController : BaseController, IDocentController
         repoDocent.Update(docent);
     }
 
-    public void Delete(Docent d)
+    public void DeleteDocent(Docent d)
     {
         repoDocent.Delete(d);
         repoDocent.Update(d);

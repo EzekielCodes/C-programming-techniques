@@ -60,9 +60,10 @@ public partial class LosKoppelenDocent : Form
 
     private void FillOpoDocenten(object sender, EventArgs e)
     {
-        comboBoxOpo.Items.Clear();
+        
         var docent = (Docent)comboBoxDocenten.SelectedItem;
         Debug.WriteLine(String.Join(" ", docent.OpoList));
-        comboBoxOpo.DataSource = docent.OpoList;
+        var docentOpo = docent.OpoList.OrderBy(o => o.Code).ToList();
+        comboBoxOpo.DataSource = docentOpo;
     }
 }

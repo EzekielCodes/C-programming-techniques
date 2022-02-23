@@ -6,4 +6,5 @@ public interface IOpoController
 {
     void AddOpo(Opo s);
     List<Opo> GetOpo();
+    void DeleteOpo(Opo s);
 }

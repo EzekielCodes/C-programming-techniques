@@ -61,6 +61,7 @@ public partial class KoppelStudentOpo : Form
         Debug.WriteLine(String.Join(" ", student.OpoList));
         List<Opo> opoList = opos
             .Where(w => !student.OpoList.Contains(w))
+            .OrderBy(o => o.Code)
             .ToList();
 
         comboBoxOpo.DataSource = opoList;

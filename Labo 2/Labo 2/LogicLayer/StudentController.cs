@@ -39,12 +39,10 @@ public class StudentController : BaseController, IStudentController
         repoStudent.GetAll();
     }
 
-    public void DeleteOpo(Student s)
+    public void DeleteStudent(Student s)
     {
         repoStudent.Delete(s);
         repoStudent.Update(s);
-    }
-}
-
+    }}
 
     
