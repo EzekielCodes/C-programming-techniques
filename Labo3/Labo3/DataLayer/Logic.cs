@@ -9,8 +9,6 @@ using MongoDB.Driver;
 using SharpRepository.MongoDbRepository;
 
 namespace Labo3.DataLayer;
-
-
 public class Logic : ILogicstudent, ILogic
 {
     private readonly IModel _model;
@@ -37,14 +35,15 @@ public class Logic : ILogicstudent, ILogic
     }
     public void Addopo(Student student, Opo opo)
     {
-        repoStudent.Get(student.Id).VoegOPOToe(opo);
+     
+        student.VoegOPOToe(opo);
         repoStudent.Update(student);
         repoStudent.GetAll();
     }
 
     public void RemoveOpo(Student student, Opo opo)
     {
-        repoStudent.Get(student.Id).VerwijderOPO(opo);
+        student.VerwijderOPO(opo);
         repoStudent.Update(student);
         repoStudent.GetAll();
     }
@@ -67,13 +66,14 @@ public class Logic : ILogicstudent, ILogic
 
     public void Addopo(Docent docent, Opo opo)
     {
-        repoDocent.Get(docent.Id).VoegOPOToe(opo);
+        docent.VoegOPOToe(opo);
         repoDocent.Update(docent);
+        repoDocent.GetAll();
     }
 
     public void RemoveOpo(Docent docent, Opo opo)
     {
-        repoDocent.Get(docent.Id).VerwijderOPO(opo);
+        docent.VerwijderOPO(opo);
         repoDocent.Update(docent);
     }
 

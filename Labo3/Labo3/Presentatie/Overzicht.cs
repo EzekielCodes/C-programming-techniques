@@ -44,39 +44,59 @@ public partial class Overzicht : Form
     {
         VoegDocentToe vg = new(_logic);
         vg.ShowDialog();
+        FillStudenten();
+        FillDocenten();
     }
 
     private void Opotoevoegen(object sender, EventArgs e)
     {
         VoegOpoToe vg = new(_logic);
         vg.ShowDialog();
+        FillStudenten();
+        FillDocenten();
     }
 
     private void Studenttoevoegen(object sender, EventArgs e)
     {
         VoegStudentToe vg = new(_logic);
         vg.ShowDialog();
+        FillStudenten();
+        FillDocenten();
+       
     }
 
     private void DocentKoppelen(object sender, EventArgs e)
     {
         KoppelDocentOpo vg = new(_logic);
         vg.ShowDialog();
+        FillStudenten();
+        FillDocenten();
+
     }
 
     private void StudentKoppelen(object sender, EventArgs e)
     {
         KoppelStudentOpo vg = new(_logic);
         vg.ShowDialog();
+        FillStudenten();
+        FillDocenten();
     }
 
     private void StudentLoskoppelen(object sender, EventArgs e)
     {
+        LoskoppelenStudent vg = new(_logic);
+        vg.ShowDialog();
+        FillStudenten();
+        FillDocenten();
 
     }
 
     private void DocentLoskoppelen(object sender, EventArgs e)
     {
+        LosKoppelenDocent vg = new(_logic);
+        vg.ShowDialog();
+        FillStudenten();
+        FillDocenten();
 
     }
 
