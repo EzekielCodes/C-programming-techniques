@@ -15,7 +15,7 @@ public class Logic : ILogicstudent, ILogic
     protected MongoDbRepository<Student> repoStudent;
     protected MongoDbRepository<Docent> repoDocent;
     protected MongoDbRepository<Opo> repoOpo;
-    public const string _connectionString = "mongodb://127.0.0.1:27017/Labo";
+    public const string _connectionString = "mongodb+srv://Akindele:Azerty123@cluster0.lp0bf.mongodb.net/Labo?retryWrites=true&w=majority";
     public Logic(IModel model)
     {
         _model = model;

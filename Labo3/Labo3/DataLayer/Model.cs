@@ -18,7 +18,7 @@ public class Model : IModel
 
     public Model()
     {
-        _connectionString = "mongodb://127.0.0.1:27017/Labo";
+        _connectionString = "mongodb+srv://Akindele:Azerty123@cluster0.lp0bf.mongodb.net/Labo?retryWrites=true&w=majority";
 
     }
 }
