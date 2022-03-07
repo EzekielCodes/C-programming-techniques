@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Labo3.Global;
 
+[BsonDiscriminator("Persoon")]
 public abstract class Persoon
 {
     public abstract string Familienaam { get; set; }
