@@ -37,8 +37,6 @@ public class Opo : IComparable<Opo>, IEquatable<Opo>
 
     public virtual List<Student> StudentList { get; set; }
     public virtual List<Docent> DocentList { get; set; }
-
-
     public Opo(string id, string code, string naam, int stp, Fase fase, Semester semester)
     {
         _id = id;

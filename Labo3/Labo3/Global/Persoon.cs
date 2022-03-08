@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Labo3.Global;
 
 [BsonDiscriminator("Persoon")]
+[BsonKnownTypes(typeof(Student),typeof(Personeelslid))]
 public abstract class Persoon
 {
     public abstract string Familienaam { get; set; }

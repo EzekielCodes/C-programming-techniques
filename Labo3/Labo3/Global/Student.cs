@@ -38,8 +38,6 @@ public class Student : Persoon, IComparable<Student>
         set { _studentnummer = value; }
     }
     public virtual List<Opo> OpoList { get; set; }
-
-
     public Student(string id, String naam, String voornaam, String studentnr)
     {
         _naam = naam;

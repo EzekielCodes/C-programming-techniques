@@ -47,8 +47,6 @@ public partial class VoegOpoToe : Form
         {
             _logic.AddOpo(new Global.Opo(code, naam, Int32.Parse(stp), Enum.Parse<Fase>(fase), Enum.Parse<Semester>(semester)));
             MessageBox.Show("Opo toegevoegd in database");
-            this.Close();
-        }
-
-    }
+            Close();
+        }}
 }
