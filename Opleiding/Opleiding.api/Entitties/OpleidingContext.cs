@@ -53,8 +53,6 @@ namespace Opleiding.api.DataLayer
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
-                p.HasIndex(p => p.RoleId).IsUnique();
-                p.HasIndex(p => p.UserId).IsUnique();
             });
 
             builder.Entity<OpoStudent>(s =>
