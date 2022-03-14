@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "kd5fhlzo9HtS2qpMfGdCpzhrQJ9e+5qn+Nok0SY9kG4=",
+  "Source": "opleiding.api",
+  "BasePath": "_content/opleiding.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
