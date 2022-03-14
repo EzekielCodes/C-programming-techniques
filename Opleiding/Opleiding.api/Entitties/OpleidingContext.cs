@@ -52,14 +52,19 @@ namespace Opleiding.api.DataLayer
                 .HasForeignKey(r => r.RoleId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+                p.HasIndex(p => p.RoleId).IsUnique();
+                p.HasIndex(p => p.UserId).IsUnique();
             });
 
             builder.Entity<OpoStudent>(s =>
             {
                 s.ToTable("OpoStudenten");
                 s.HasKey(s => new { s.StudentId, s.OpoId });
-                
+                s.HasIndex(s => s.StudentId).IsUnique();
+
             });
+                
 
             builder.Entity<OpoStudent>(o =>
             {
@@ -77,9 +82,13 @@ namespace Opleiding.api.DataLayer
                 .OnDelete(DeleteBehavior.Restrict);
             });
 
-            builder.Entity<OpoDocent>()
-                .ToTable("OpoDocenten")
-                .HasKey(d => new { d.DocentId, d.OpoId });
+            builder.Entity<OpoDocent>(s =>
+            {
+                s.ToTable("OpoDocenten");
+                s.HasKey(d => new { d.DocentId, d.OpoId });
+                s.HasIndex(s => s.DocentId).IsUnique();
+            });
+                
 
             builder.Entity<OpoDocent>(o =>
             {
@@ -97,9 +106,13 @@ namespace Opleiding.api.DataLayer
                 .OnDelete(DeleteBehavior.Restrict);
             });
 
-            builder.Entity<OpoOpleiding>()
-                .ToTable("OpleidingOpos")
-                .HasKey(s => new { s.OpoId, s.OpleidingId });
+            builder.Entity<OpoOpleiding>(s =>
+            {
+                s.ToTable("OpleidingOpos");
+                s.HasKey(s => new { s.OpoId, s.OpleidingId });
+                s.HasIndex(s => s.OpleidingId).IsUnique();
+            });
+                
 
             builder.Entity<OpoOpleiding>(o =>
             {
