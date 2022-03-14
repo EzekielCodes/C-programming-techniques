@@ -321,7 +321,14 @@ namespace opleiding.api.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_OpleidingOpos_OpleidingId",
                 table: "OpleidingOpos",
-                column: "OpleidingId");
+                column: "OpleidingId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OpoDocenten_DocentId",
+                table: "OpoDocenten",
+                column: "DocentId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpoDocenten_OpoId",
@@ -337,6 +344,12 @@ namespace opleiding.api.Migrations
                 name: "IX_OpoStudenten_OpoId",
                 table: "OpoStudenten",
                 column: "OpoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OpoStudenten_StudentId",
+                table: "OpoStudenten",
+                column: "StudentId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

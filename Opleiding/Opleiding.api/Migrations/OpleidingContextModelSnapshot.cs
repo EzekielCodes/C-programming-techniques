@@ -176,6 +176,9 @@ namespace opleiding.api.Migrations
 
                     b.HasKey("DocentId", "OpoId");
 
+                    b.HasIndex("DocentId")
+                        .IsUnique();
+
                     b.HasIndex("OpoId");
 
                     b.ToTable("OpoDocenten", (string)null);
@@ -191,7 +194,8 @@ namespace opleiding.api.Migrations
 
                     b.HasKey("OpoId", "OpleidingId");
 
-                    b.HasIndex("OpleidingId");
+                    b.HasIndex("OpleidingId")
+                        .IsUnique();
 
                     b.ToTable("OpleidingOpos", (string)null);
                 });
@@ -207,6 +211,9 @@ namespace opleiding.api.Migrations
                     b.HasKey("StudentId", "OpoId");
 
                     b.HasIndex("OpoId");
+
+                    b.HasIndex("StudentId")
+                        .IsUnique();
 
                     b.ToTable("OpoStudenten", (string)null);
                 });
