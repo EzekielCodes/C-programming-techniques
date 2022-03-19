@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace opleiding.api.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,18 +165,17 @@ namespace opleiding.api.Migrations
                 columns: table => new
                 {
                     OpleidingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OpleidingshoofdIDId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Opleidingen", x => x.OpleidingId);
                     table.ForeignKey(
-                        name: "FK_Opleidingen_AspNetUsers_OpleidingshoofdIDId",
-                        column: x => x.OpleidingshoofdIDId,
+                        name: "FK_Opleidingen_AspNetUsers_OpleidingId",
+                        column: x => x.OpleidingId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -184,22 +183,22 @@ namespace opleiding.api.Migrations
                 columns: table => new
                 {
                     OpoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OpoVerantwoordelijkeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     Naam = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Stp = table.Column<int>(type: "int", nullable: false),
                     fase = table.Column<int>(type: "int", nullable: false),
-                    semester = table.Column<int>(type: "int", nullable: false)
+                    semester = table.Column<int>(type: "int", nullable: false),
+                    OpoVerantwoordelijkeID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Opos", x => x.OpoId);
                     table.ForeignKey(
-                        name: "FK_Opos_AspNetUsers_OpoVerantwoordelijkeId",
-                        column: x => x.OpoVerantwoordelijkeId,
+                        name: "FK_Opos_AspNetUsers_OpoVerantwoordelijkeID",
+                        column: x => x.OpoVerantwoordelijkeID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -314,11 +313,6 @@ namespace opleiding.api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Opleidingen_OpleidingshoofdIDId",
-                table: "Opleidingen",
-                column: "OpleidingshoofdIDId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OpleidingOpos_OpleidingId",
                 table: "OpleidingOpos",
                 column: "OpleidingId",
@@ -336,9 +330,10 @@ namespace opleiding.api.Migrations
                 column: "OpoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Opos_OpoVerantwoordelijkeId",
+                name: "IX_Opos_OpoVerantwoordelijkeID",
                 table: "Opos",
-                column: "OpoVerantwoordelijkeId");
+                column: "OpoVerantwoordelijkeID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpoStudenten_OpoId",

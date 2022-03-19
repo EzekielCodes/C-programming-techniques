@@ -126,4 +126,17 @@ namespace Opleiding.api.DataLayer
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
             });
+
+            // 1 op 1
+            builder.Entity<Docent>()
+                .HasOne(b => b.opo)
+                .WithOne(i => i.OpoVerantwoordelijke)
+                .HasForeignKey<Opo>(b => b.OpoVerantwoordelijkeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Docent>()
+                .HasOne(b => b.opleiding)
+                .WithOne(i => i.Opleidingshoofd)
+                .HasForeignKey<Entitties.Opleiding>(b => b.OpleidingId)
+                .OnDelete(DeleteBehavior.Restrict);
         }}}

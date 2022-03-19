@@ -113,7 +113,6 @@ namespace opleiding.api.Migrations
             modelBuilder.Entity("Opleiding.api.Entitties.Opleiding", b =>
                 {
                     b.Property<Guid>("OpleidingId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -121,12 +120,7 @@ namespace opleiding.api.Migrations
                         .HasMaxLength(45)
                         .HasColumnType("nvarchar(45)");
 
-                    b.Property<Guid>("OpleidingshoofdIDId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("OpleidingId");
-
-                    b.HasIndex("OpleidingshoofdIDId");
 
                     b.ToTable("Opleidingen");
                 });
@@ -147,7 +141,7 @@ namespace opleiding.api.Migrations
                         .HasMaxLength(45)
                         .HasColumnType("nvarchar(45)");
 
-                    b.Property<Guid>("OpoVerantwoordelijkeId")
+                    b.Property<Guid>("OpoVerantwoordelijkeID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Stp")
@@ -161,7 +155,8 @@ namespace opleiding.api.Migrations
 
                     b.HasKey("OpoId");
 
-                    b.HasIndex("OpoVerantwoordelijkeId");
+                    b.HasIndex("OpoVerantwoordelijkeID")
+                        .IsUnique();
 
                     b.ToTable("Opos");
                 });
@@ -417,21 +412,21 @@ namespace opleiding.api.Migrations
 
             modelBuilder.Entity("Opleiding.api.Entitties.Opleiding", b =>
                 {
-                    b.HasOne("Opleiding.api.Entitties.Docent", "OpleidingshoofdID")
-                        .WithMany()
-                        .HasForeignKey("OpleidingshoofdIDId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Opleiding.api.Entitties.Docent", "Opleidingshoofd")
+                        .WithOne("opleiding")
+                        .HasForeignKey("Opleiding.api.Entitties.Opleiding", "OpleidingId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("OpleidingshoofdID");
+                    b.Navigation("Opleidingshoofd");
                 });
 
             modelBuilder.Entity("Opleiding.api.Entitties.Opo", b =>
                 {
                     b.HasOne("Opleiding.api.Entitties.Docent", "OpoVerantwoordelijke")
-                        .WithMany()
-                        .HasForeignKey("OpoVerantwoordelijkeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("opo")
+                        .HasForeignKey("Opleiding.api.Entitties.Opo", "OpoVerantwoordelijkeID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("OpoVerantwoordelijke");
@@ -545,6 +540,12 @@ namespace opleiding.api.Migrations
             modelBuilder.Entity("Opleiding.api.Entitties.Docent", b =>
                 {
                     b.Navigation("OpoDocenten");
+
+                    b.Navigation("opleiding")
+                        .IsRequired();
+
+                    b.Navigation("opo")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

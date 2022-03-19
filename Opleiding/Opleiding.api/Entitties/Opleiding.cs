@@ -8,7 +8,7 @@ namespace Opleiding.api.Entitties
     {
         public Guid OpleidingId { get; set; }
         [Required]
-        public virtual Docent OpleidingshoofdID { get; set; }
+        public virtual Docent Opleidingshoofd { get; set; }
         [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$")]
         [StringLength(45, MinimumLength = 3)]
         [Required]

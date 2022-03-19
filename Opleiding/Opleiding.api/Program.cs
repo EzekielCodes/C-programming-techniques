@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using opleiding.api.Repositories;
 using Opleiding.api.DataLayer;
 using Opleiding.api.Entitties;
 
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<OpleidingContext>(options =>
 
 //identitity configuration
 builder.Services.AddIdentity<Persoon, Rol>().AddEntityFrameworkStores<OpleidingContext>();
+
+builder.Services.AddScoped<IOpoRepository, OpoRepository>();
 
 var app = builder.Build();
 

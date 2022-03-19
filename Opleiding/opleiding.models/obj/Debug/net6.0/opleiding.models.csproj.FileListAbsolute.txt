@@ -1,0 +1,12 @@
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\bin\Debug\net6.0\opleiding.models.deps.json
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\bin\Debug\net6.0\opleiding.models.dll
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\bin\Debug\net6.0\ref\opleiding.models.dll
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\bin\Debug\net6.0\opleiding.models.pdb
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\opleiding.models.csproj.AssemblyReference.cache
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\opleiding.models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\opleiding.models.AssemblyInfoInputs.cache
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\opleiding.models.AssemblyInfo.cs
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\opleiding.models.csproj.CoreCompileInputs.cache
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\opleiding.models.dll
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\ref\opleiding.models.dll
+C:\Users\Guest\c# programming techniques\Opleiding\opleiding.models\obj\Debug\net6.0\opleiding.models.pdb

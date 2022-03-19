@@ -10,6 +10,8 @@ namespace Opleiding.api.Entitties
         [StringLength(45, MinimumLength = 3)]
         [Required]
         public string Vakdomein { get; set; }
+        public virtual Opo opo { get; set; }
+        public virtual Opleiding opleiding { get; set; }
         public virtual ICollection<OpoDocent> OpoDocenten { get; set; }
     }
 }
