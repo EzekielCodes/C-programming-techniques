@@ -59,7 +59,6 @@ namespace Opleiding.api.DataLayer
             {
                 s.ToTable("OpoStudenten");
                 s.HasKey(s => new { s.StudentId, s.OpoId });
-                s.HasIndex(s => s.StudentId).IsUnique();
 
             });
                 
@@ -84,7 +83,6 @@ namespace Opleiding.api.DataLayer
             {
                 s.ToTable("OpoDocenten");
                 s.HasKey(d => new { d.DocentId, d.OpoId });
-                s.HasIndex(s => s.DocentId).IsUnique();
             });
                 
 
@@ -108,7 +106,6 @@ namespace Opleiding.api.DataLayer
             {
                 s.ToTable("OpleidingOpos");
                 s.HasKey(s => new { s.OpoId, s.OpleidingId });
-                s.HasIndex(s => s.OpleidingId).IsUnique();
             });
                 
 
@@ -139,4 +136,29 @@ namespace Opleiding.api.DataLayer
                 .WithOne(i => i.Opleidingshoofd)
                 .HasForeignKey<Entitties.Opleiding>(b => b.OpleidingId)
                 .OnDelete(DeleteBehavior.Restrict);
-        }}}
+
+            //indexen
+            builder.Entity<Student>(x =>
+            {
+                x.HasIndex(x => new { x.Id })
+                .IsUnique(true);
+            });
+
+            builder.Entity<Docent>(x =>
+            {
+                x.HasIndex(x => new { x.Id })
+                .IsUnique(true);
+            });
+
+            builder.Entity<Entitties.Opleiding>(x =>
+            {
+                x.HasIndex(x => new { x.Naam })
+                .IsUnique(true);
+            });
+            builder.Entity<Opo>(x =>
+            {
+                x.HasIndex(x => new { x.Code })
+                .IsUnique();
+            });
+        }
+    }}

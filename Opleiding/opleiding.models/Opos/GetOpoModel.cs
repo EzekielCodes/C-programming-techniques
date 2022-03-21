@@ -9,10 +9,11 @@ namespace opleiding.models.Opos;
 
 public class GetOpoModel:BaseOpoModel
 {
+    public Guid OpoId { get; set; }
     public string OpoVerantwoordelijke { get; set; }
     public int AantalStudenten { get; set; }
     public List<GetOpoModel> Opo { get; set; }
-    public ICollection<BaseDocentModel> Docenten { get; set; }
-    public ICollection<BaseStudentModel> Studenten { get; set; }
+    public ICollection<BaseDocentModel> GetDocetenModel { get; set; }
+    public ICollection<BaseStudentModel> GetStudentenModel { get; set; }
    
 }

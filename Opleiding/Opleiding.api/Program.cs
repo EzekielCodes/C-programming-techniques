@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using opleiding.api;
 using opleiding.api.Repositories;
 using Opleiding.api.DataLayer;
 using Opleiding.api.Entitties;
@@ -22,6 +23,12 @@ builder.Services.AddIdentity<Persoon, Rol>().AddEntityFrameworkStores<OpleidingC
 builder.Services.AddScoped<IOpoRepository, OpoRepository>();
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

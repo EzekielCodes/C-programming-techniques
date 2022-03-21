@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using opleiding.api.Entitties;
+using opleiding.models.Docent;
 using opleiding.models.Opos;
 using Opleiding.api.DataLayer;
 using Opleiding.api.Entitties;
+using System.Diagnostics;
 
 namespace opleiding.api.Repositories;
 public class OpoRepository : IOpoRepository
@@ -13,16 +16,37 @@ public class OpoRepository : IOpoRepository
     {
         _context = context;
     }
-    public async Task DeleteOpo(Guid id)
+    public async Task<bool> DeleteOpo(Guid id)
     {
-        Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
-        if(opo == null)
+        try
         {
-            throw new NotImplementedException("Opo niet gevonden");
+            Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
+            if (opo == null)
+            {
+                throw new NotImplementedException("Opo niet gevonden");
+                return false;
+            }
+            // Remove Opo from OpoDocenten
+            List<OpoDocent> DocentenVanOpo = opo.OpoDocenten.ToList();
+            foreach (var opoDocent in DocentenVanOpo)
+            {
+                _context.OpoDocenten.Remove(opoDocent);
+            }
+            // Remove Opo from OpoStudenten
+            // _context.OpoStudenten.Where(o => o.OpoId == id).ToList();
+            List<OpoStudent> StudentenVanOpo = opo.OpoStudenten.ToList();
+            foreach (var opoStudent in StudentenVanOpo)
+            {
+                _context.OpoStudenten.Remove(opoStudent);
+            }
+            _context.Opos.Remove(opo);
+            await _context.SaveChangesAsync();
         }
-        _context.Opos.Remove(opo);
-        await _context.SaveChangesAsync();
-        
+        catch(Exception ex)
+        {
+            Debug.WriteLine("Error");
+        }
+        return true;
     }
 
     public async Task<GetOpoModel> GetOpo(Guid id)
@@ -38,10 +62,11 @@ public class OpoRepository : IOpoRepository
                Semester = x.Semester,
                OpoVerantwoordelijke = x.OpoVerantwoordelijke.Voornaam + " " + x.OpoVerantwoordelijke.Familienaam,
                Naam = x.Naam,
-               Docenten = x.OpoDocenten.Select(x => new models.Docent.BaseDocentModel
+               GetDocetenModel = x.OpoDocenten.Select(x => new models.Docent.BaseDocentModel
                {
                    Voornaam = x.Docent.Voornaam,
                    Familienaam = x.Docent.Familienaam
+                   
                }).ToList(),
                AantalStudenten = x.OpoStudenten.Count()
            })
@@ -56,7 +81,7 @@ public class OpoRepository : IOpoRepository
         return oposModel;
     }
 
-    public async Task<List<GetOpoModel>> GetOpos()
+    public async Task<GetOposModel> GetOpos()
     {
         List<GetOpoModel> opos = await _context.Opos
             .Select(x => new GetOpoModel
@@ -68,7 +93,7 @@ public class OpoRepository : IOpoRepository
                 Semester = x.Semester,
                 OpoVerantwoordelijke = x.OpoVerantwoordelijke.Voornaam + " " + x.OpoVerantwoordelijke.Familienaam,
                 Naam = x.Naam,
-                Docenten = x.OpoDocenten.Select(x => new models.Docent.BaseDocentModel
+                GetDocetenModel = x.OpoDocenten.Select(x => new BaseDocentModel
                 {
                     Voornaam = x.Docent.Voornaam,
                     Familienaam = x.Docent.Familienaam
@@ -78,14 +103,19 @@ public class OpoRepository : IOpoRepository
             .AsNoTracking()
             .ToListAsync();
 
-        return opos;
+
+        GetOposModel oposModel = new GetOposModel
+        {
+            Opos = opos
+        };
+
+        return oposModel;
     }
 
     public async Task<GetOpoModel> PostOpo(PostOpoModel postOpoModel)
     {
         EntityEntry<Opo> result = await _context.Opos.AddAsync(new Opo
         {
-            OpoId =postOpoModel.OpoId,
             Stp = postOpoModel.Stp,
             Code = postOpoModel.Code,
             Naam = postOpoModel.Naam,
@@ -98,22 +128,31 @@ public class OpoRepository : IOpoRepository
         return await GetOpo(result.Entity.OpoId);
     }
 
-    public async Task PutOpo(Guid id, PutOpoModel putOpo)
+    public async Task<bool> PutOpo(Guid id, PutOpoModel putOpo)
     {
-
-        Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
-        if (opo == null)
+        try
         {
-            throw new Exception("Opo niet gevonden");
-        }
-        opo.Code = putOpo.Code;
-        opo.Naam = putOpo.Naam;
-        opo.Stp = putOpo.Stp;
-        opo.Semester = putOpo.Semester;
-        opo.Fase = putOpo.Fase;
-        opo.OpoId = putOpo.OpoId;
+            Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
+            if (opo == null)
+            {
+                throw new Exception("Opo niet gevonden");
+                return false;
+            }
+            putOpo.StudentenID = opo.OpoStudenten.Where(o => o.OpoId == id).Select(s => s.StudentId).ToList();
+            opo.Code = putOpo.Code;
+            opo.Naam = putOpo.Naam;
+            opo.Stp = putOpo.Stp;
+            opo.Semester = putOpo.Semester;
+            opo.Fase = putOpo.Fase;
 
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
+        return true;
+        
     }
 
    

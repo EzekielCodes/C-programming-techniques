@@ -12,7 +12,7 @@ namespace Opleiding.api.Entitties
         [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$")]
         [StringLength(45, MinimumLength = 3)]
         [Required]
-        public string Name { get; set; }
+        public string Naam { get; set; }
         public virtual ICollection<OpoOpleiding> OpoOpleiding { get; set; }
     }
 }

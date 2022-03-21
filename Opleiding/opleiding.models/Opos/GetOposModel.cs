@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace opleiding.models.Opos;
 
-public class PutOpoModel:BaseOpoModel
+public  class GetOposModel:BaseOpoModel
 {
-    public List<Guid> StudentenID { get; set; }
+    public List<GetOpoModel> Opos { get; set; } 
 }

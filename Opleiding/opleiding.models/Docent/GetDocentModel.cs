@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace opleiding.models.Opos;
+namespace opleiding.models.Docent;
 
-public class PutOpoModel:BaseOpoModel
+public class GetDocentModel:BaseDocentModel
 {
-    public List<Guid> StudentenID { get; set; }
+    
 }

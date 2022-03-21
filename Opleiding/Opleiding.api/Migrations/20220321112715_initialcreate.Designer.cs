@@ -12,7 +12,7 @@ using Opleiding.api.DataLayer;
 namespace opleiding.api.Migrations
 {
     [DbContext(typeof(OpleidingContext))]
-    [Migration("20220318162917_initialcreate")]
+    [Migration("20220321112715_initialcreate")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,12 +117,15 @@ namespace opleiding.api.Migrations
                     b.Property<Guid>("OpleidingId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Naam")
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("nvarchar(45)");
 
                     b.HasKey("OpleidingId");
+
+                    b.HasIndex("Naam")
+                        .IsUnique();
 
                     b.ToTable("Opleidingen");
                 });
@@ -138,6 +141,9 @@ namespace opleiding.api.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
+                    b.Property<int>("Fase")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naam")
                         .IsRequired()
                         .HasMaxLength(45)
@@ -146,16 +152,16 @@ namespace opleiding.api.Migrations
                     b.Property<Guid>("OpoVerantwoordelijkeID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Semester")
+                        .HasColumnType("int");
+
                     b.Property<int>("Stp")
                         .HasColumnType("int");
 
-                    b.Property<int>("fase")
-                        .HasColumnType("int");
-
-                    b.Property<int>("semester")
-                        .HasColumnType("int");
-
                     b.HasKey("OpoId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("OpoVerantwoordelijkeID")
                         .IsUnique();
@@ -173,9 +179,6 @@ namespace opleiding.api.Migrations
 
                     b.HasKey("DocentId", "OpoId");
 
-                    b.HasIndex("DocentId")
-                        .IsUnique();
-
                     b.HasIndex("OpoId");
 
                     b.ToTable("OpoDocenten", (string)null);
@@ -191,8 +194,7 @@ namespace opleiding.api.Migrations
 
                     b.HasKey("OpoId", "OpleidingId");
 
-                    b.HasIndex("OpleidingId")
-                        .IsUnique();
+                    b.HasIndex("OpleidingId");
 
                     b.ToTable("OpleidingOpos", (string)null);
                 });
@@ -208,9 +210,6 @@ namespace opleiding.api.Migrations
                     b.HasKey("StudentId", "OpoId");
 
                     b.HasIndex("OpoId");
-
-                    b.HasIndex("StudentId")
-                        .IsUnique();
 
                     b.ToTable("OpoStudenten", (string)null);
                 });
@@ -361,6 +360,9 @@ namespace opleiding.api.Migrations
                         .HasMaxLength(45)
                         .HasColumnType("nvarchar(45)");
 
+                    b.HasIndex("Id")
+                        .IsUnique();
+
                     b.HasDiscriminator().HasValue("Student");
                 });
 
@@ -372,6 +374,9 @@ namespace opleiding.api.Migrations
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("nvarchar(45)");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("Docent");
                 });

@@ -9,7 +9,7 @@ namespace opleiding.models.Opos;
 
 public class BaseOpoModel
 {
-    public Guid OpoId { get; set; }
+
     [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$")]
     [StringLength(6, MinimumLength = 3)]
     [Required]

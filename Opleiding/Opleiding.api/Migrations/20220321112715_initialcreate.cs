@@ -165,7 +165,7 @@ namespace opleiding.api.Migrations
                 columns: table => new
                 {
                     OpleidingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false)
+                    Naam = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -186,8 +186,8 @@ namespace opleiding.api.Migrations
                     Code = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     Naam = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Stp = table.Column<int>(type: "int", nullable: false),
-                    fase = table.Column<int>(type: "int", nullable: false),
-                    semester = table.Column<int>(type: "int", nullable: false),
+                    Fase = table.Column<int>(type: "int", nullable: false),
+                    Semester = table.Column<int>(type: "int", nullable: false),
                     OpoVerantwoordelijkeID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -306,6 +306,12 @@ namespace opleiding.api.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_Id",
+                table: "AspNetUsers",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -313,21 +319,26 @@ namespace opleiding.api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpleidingOpos_OpleidingId",
-                table: "OpleidingOpos",
-                column: "OpleidingId",
+                name: "IX_Opleidingen_Naam",
+                table: "Opleidingen",
+                column: "Naam",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpoDocenten_DocentId",
-                table: "OpoDocenten",
-                column: "DocentId",
-                unique: true);
+                name: "IX_OpleidingOpos_OpleidingId",
+                table: "OpleidingOpos",
+                column: "OpleidingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpoDocenten_OpoId",
                 table: "OpoDocenten",
                 column: "OpoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Opos_Code",
+                table: "Opos",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Opos_OpoVerantwoordelijkeID",
@@ -339,12 +350,6 @@ namespace opleiding.api.Migrations
                 name: "IX_OpoStudenten_OpoId",
                 table: "OpoStudenten",
                 column: "OpoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OpoStudenten_StudentId",
-                table: "OpoStudenten",
-                column: "StudentId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
