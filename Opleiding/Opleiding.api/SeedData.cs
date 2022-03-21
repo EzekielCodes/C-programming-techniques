@@ -157,7 +157,13 @@ namespace opleiding.api
                      OpoId = dataScience.OpoId,
                  };
 
-                 OpoStudent opoStudent = new OpoStudent()
+                OpoDocent opoDocentDataSecurity2 = new OpoDocent()
+                {
+                    DocentId = testDocent.Id,
+                    OpoId = dataScience.OpoId,
+                };
+
+                OpoStudent opoStudent = new OpoStudent()
                  {
                      StudentId = akindele.Id,
                      //Student = vito,
@@ -181,11 +187,13 @@ namespace opleiding.api
                      OpoId = techniques.OpoId,
                  };
                  context.OpoStudenten.AddRange(opoStudent, opoStudent2, opoStudent3,opoStudent4);
-                 context.OpoDocenten.AddRange(opoDocentDataScience,opoDocentDataSecurity,opoDocenttechnique);
+                 context.OpoDocenten.AddRange(opoDocentDataScience,opoDocentDataSecurity, opoDocenttechnique,opoDocentDataSecurity2);
                 
 
 
                 context.SaveChanges();*/
-            }}}}
+            }
+        }
+    }}
 
 

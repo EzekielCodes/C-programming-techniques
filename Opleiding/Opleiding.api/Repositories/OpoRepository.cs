@@ -138,12 +138,23 @@ public class OpoRepository : IOpoRepository
                 throw new Exception("Opo niet gevonden");
                 return false;
             }
-            putOpo.StudentenID = opo.OpoStudenten.Where(o => o.OpoId == id).Select(s => s.StudentId).ToList();
+           
             opo.Code = putOpo.Code;
             opo.Naam = putOpo.Naam;
             opo.Stp = putOpo.Stp;
             opo.Semester = putOpo.Semester;
             opo.Fase = putOpo.Fase;
+
+            putOpo.StudentenID.ForEach(studentId =>
+            {
+                var opoStudent = new OpoStudent();
+                opoStudent.StudentId = studentId;
+                opoStudent.OpoId = id;
+                if (!opo.OpoStudenten.Contains(opoStudent))
+                {
+                    opo.OpoStudenten.Add(opoStudent);
+                }
+            });
 
             await _context.SaveChangesAsync();
         }
