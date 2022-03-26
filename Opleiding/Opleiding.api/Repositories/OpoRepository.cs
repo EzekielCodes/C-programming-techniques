@@ -62,12 +62,7 @@ public class OpoRepository : IOpoRepository
                Semester = x.Semester,
                OpoVerantwoordelijke = x.OpoVerantwoordelijke.Voornaam + " " + x.OpoVerantwoordelijke.Familienaam,
                Naam = x.Naam,
-               GetDocetenModel = x.OpoDocenten.Select(x => new models.Docent.BaseDocentModel
-               {
-                   Voornaam = x.Docent.Voornaam,
-                   Familienaam = x.Docent.Familienaam
-                   
-               }).ToList(),
+               Docenten = x.OpoDocenten.Select(x => x.Docent.Voornaam + " " + x.Docent.Familienaam).ToList(),
                AantalStudenten = x.OpoStudenten.Count()
            })
            .AsNoTracking()
@@ -93,11 +88,7 @@ public class OpoRepository : IOpoRepository
                 Semester = x.Semester,
                 OpoVerantwoordelijke = x.OpoVerantwoordelijke.Voornaam + " " + x.OpoVerantwoordelijke.Familienaam,
                 Naam = x.Naam,
-                GetDocetenModel = x.OpoDocenten.Select(x => new BaseDocentModel
-                {
-                    Voornaam = x.Docent.Voornaam,
-                    Familienaam = x.Docent.Familienaam
-                }).ToList(),
+                Docenten = x.OpoDocenten.Select(x => x.Docent.Voornaam + " " + x.Docent.Familienaam).ToList(),
                 AantalStudenten = x.OpoStudenten.Count()
             })
             .AsNoTracking()

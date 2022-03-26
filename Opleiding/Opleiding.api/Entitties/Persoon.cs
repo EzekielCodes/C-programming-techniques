@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using opleiding.api.Entitties;
 using System.ComponentModel.DataAnnotations;
 
 namespace Opleiding.api.Entitties
@@ -15,6 +16,7 @@ namespace Opleiding.api.Entitties
         [Required]
         public string Voornaam { get; set; }
         public virtual ICollection<PersoonRol> PersoonRollen { get; set; }
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
 
     }
 }

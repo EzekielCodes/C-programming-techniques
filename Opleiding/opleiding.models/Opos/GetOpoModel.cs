@@ -13,7 +13,7 @@ public class GetOpoModel:BaseOpoModel
     public string OpoVerantwoordelijke { get; set; }
     public int AantalStudenten { get; set; }
     public List<GetOpoModel> Opo { get; set; }
-    public ICollection<BaseDocentModel> GetDocetenModel { get; set; }
+    public List<string> Docenten { get; set; }
     public ICollection<BaseStudentModel> GetStudentenModel { get; set; }
    
 }

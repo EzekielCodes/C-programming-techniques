@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using opleiding.api.Entitties;
 using Opleiding.api.DataLayer;
 using Opleiding.api.Entitties;
@@ -10,190 +11,128 @@ namespace opleiding.api
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using(var context = new OpleidingContext(serviceProvider.GetRequiredService<DbContextOptions<OpleidingContext>>()))
+            using var context = new OpleidingContext(serviceProvider.GetRequiredService<DbContextOptions<OpleidingContext>>());
+            using UserManager<Persoon> _userManager = serviceProvider.GetRequiredService<UserManager<Persoon>>();
+            using RoleManager<Rol> _roleManager = serviceProvider.GetRequiredService<RoleManager<Rol>>();
+
+            // roles aanmaken
+
+            if (!context.Roles.Any())
             {
-                /* if (context.Opos.Any())
-                 {
-                     return;   // DB has been seeded
-                 }
-
-                 // docenten
-
-                 Docent testDocent = new Docent()
-                 {
-                     Voornaam = "Sven",
-                     Familienaam = "Knockaert",
-                     Vakdomein = "Security"
-                 };
-                 Docent testDocent2 = new Docent()
-                 {
-                     Voornaam = "Johan",
-                     Familienaam = "Donné",
-                     Vakdomein = "Programmering"
-                 };
-                 Docent testDocent3 = new Docent()
-                 {
-                     Voornaam = "Peter",
-                     Familienaam = "Demeester",
-                     Vakdomein = "Database"
-                 };
-                 Docent testDocent4 = new Docent()
-                 {
-                     Voornaam = "Yves",
-                     Familienaam = "Blancquaert",
-                     Vakdomein = "Technique"
-                 };
-
-                Docent testDocent5 = new Docent()
+                foreach (string line in File.ReadLines(@"C:\Users\Guest\Desktop\rollen.txt"))
                 {
-                    Voornaam = "Katja",
-                    Familienaam = "Verbeeck",
-                    Vakdomein = "Database"
-                };
-
-                Docent testDocent6 = new Docent()
-                {
-                    Voornaam = "Kristien",
-                    Familienaam = "Van Assche",
-                    Vakdomein = "Database"
-                };
-
-                // studenten
-
-                Student akindele = new Student()
-                 {
-                     Voornaam = "Akindele",
-                     Familienaam = "Ezekiel",
-                     StudentenNummer = "r0842300"
-                 };
-                 Student cedar = new Student()
-                 {
-                     Voornaam = "Cedar",
-                     Familienaam = "Nina",
-                     StudentenNummer = "r0842301"
-                 };
-                 Student dave = new Student()
-                 {
-                     Voornaam = "Dave",
-                     Familienaam = "sevn",
-                     StudentenNummer = "r0842302"
-                 };
-
-                Student jacob = new Student()
-                {
-                    Voornaam = "jacob",
-                    Familienaam = "sevn",
-                    StudentenNummer = "r0842304"
-                };
-
-                Student derrick = new Student()
-                {
-                    Voornaam = "derrick",
-                    Familienaam = "cartoon",
-                    StudentenNummer = "r0842309"
-                };
-                // spare studenten
-
-                // to be added
-
-                // opos
-
-                Opo techniques = new Opo
-                 {
-                     Naam = "C# Techniques",
-                     OpoVerantwoordelijkeID = testDocent.Id,
-                     Code = "OGI02Y",
-                     Fase = 2,
-                     Stp = 6,
-                     Semester = 2,
-                     OpoVerantwoordelijke = testDocent
-                 };
-                 Opo dataScience = new Opo
-                 {
-                     Naam = "Data science",
-                     OpoVerantwoordelijkeID = testDocent2.Id,
-                     Code = "OGI03A",
-                     Fase = 2,
-                     Stp = 6,
-                     Semester = 2,
-                     OpoVerantwoordelijke = testDocent2
-                 };
-                 Opo dataSecurity = new Opo
-                 {
-                     Naam = "Data Security",
-                     OpoVerantwoordelijkeID = testDocent3.Id,
-                     Code = "OGI02V",
-                     Fase = 2,
-                     Stp = 6,
-                     Semester = 2,
-                     OpoVerantwoordelijke = testDocent3
-                 };
-
-                 // add to db 
-
-                 context.Studenten.AddRange(akindele, cedar, dave,jacob,derrick);
-
-                 context.Docenten.AddRange(testDocent, testDocent2, testDocent3, testDocent4,testDocent5,testDocent6);
-
-                 context.Opos.AddRange(techniques, dataScience, dataSecurity);
-
-                 OpoDocent opoDocentDataScience = new OpoDocent()
-                 {
-                     DocentId = testDocent.Id,
-                     //Docent = testDocent,
-                     OpoId = dataSecurity.OpoId,
-                     //Opo = dataScience
-                 };
-
-                 OpoDocent opoDocenttechnique = new OpoDocent()
-                 {
-                     DocentId = testDocent.Id,
-                     OpoId = techniques.OpoId,
-                 };
-
-                 OpoDocent opoDocentDataSecurity = new OpoDocent()
-                 {
-                     DocentId = testDocent2.Id,
-                     OpoId = dataScience.OpoId,
-                 };
-
-                OpoDocent opoDocentDataSecurity2 = new OpoDocent()
-                {
-                    DocentId = testDocent.Id,
-                    OpoId = dataScience.OpoId,
-                };
-
-                OpoStudent opoStudent = new OpoStudent()
-                 {
-                     StudentId = akindele.Id,
-                     //Student = vito,
-                     OpoId = dataScience.OpoId,
-                     //Opo = dataSecurity
-                 };
-                 OpoStudent opoStudent2 = new OpoStudent()
-                 {
-                     StudentId = cedar.Id,
-                     OpoId = dataSecurity.OpoId,
-                 };
-                 OpoStudent opoStudent3 = new OpoStudent()
-                 {
-                     StudentId = dave.Id,
-                     OpoId = techniques.OpoId,
-                 };
-
-                 OpoStudent opoStudent4 = new OpoStudent()
-                 {
-                     StudentId = cedar.Id,
-                     OpoId = techniques.OpoId,
-                 };
-                 context.OpoStudenten.AddRange(opoStudent, opoStudent2, opoStudent3,opoStudent4);
-                 context.OpoDocenten.AddRange(opoDocentDataScience,opoDocentDataSecurity, opoDocenttechnique,opoDocentDataSecurity2);
-                
-
-
-                context.SaveChanges();*/
+                    String[] rol = line.Split(';');
+                    Debug.WriteLine(String.Join("", rol));
+                    _ = _roleManager.CreateAsync(new Rol { Name = rol[0], Naam = rol[1] }).Result;
+                }
             }
-        }
-    }}
+
+            if (!context.Users.Any())
+            {
+                foreach (string line in File.ReadLines(@"C:\Users\Guest\Desktop\Opleidingdocenten.txt"))
+                {
+                    if (line.Contains(';'))
+                    {
+                        string[] docentDetails = line.Split(';');
+                        Docent docent = new()
+                        {
+                            Voornaam = docentDetails[0],
+                            Familienaam = docentDetails[1],
+                            Email = docentDetails[2],
+                            UserName = docentDetails[2],
+                            Personnelsnummer = docentDetails[4],
+                            Vakdomein = docentDetails[5],
+
+                        };
+
+                        _ = _userManager.CreateAsync(docent, "_Azerty123").Result;
+                        _ = _userManager.AddToRoleAsync(docent, docentDetails[6]).Result;
+                    }
+                }
+
+                foreach (string line in File.ReadLines(@"C:\Users\Guest\Desktop\OpleidingStudenten.txt"))
+                {
+                    if (line.Contains(';'))
+                    {
+                        string[] studentDetails = line.Split(';');
+                        Student student = new()
+                        {
+                            Voornaam = studentDetails[0],
+                            Familienaam = studentDetails[1],
+                            UserName = studentDetails[2],
+                            Email = studentDetails[2],
+                            StudentenNummer = studentDetails[3],
+
+                        };
+
+                        _= _userManager.CreateAsync(student, "_Azerty123").Result;
+                        _= _userManager.AddToRoleAsync(student, studentDetails[4]).Result;
+
+                    }
+
+                }
+            }
+
+            if (!context.Opos.Any())
+            {
+                foreach (string line in File.ReadLines(@"C:\Users\Guest\Desktop\OpleidingOpos.txt"))
+                {
+                    string[] opoDetails = line.Split(';');
+                    Docent docent = context.Docenten.First(x => x.Email.ToLower().Equals(opoDetails[5].ToLower()));
+
+                    Opo opo = new()
+                    {
+                        Code = opoDetails[0],
+                        Naam = opoDetails[1],
+                        Stp = int.Parse(opoDetails[2]),
+                        Fase = int.Parse(opoDetails[3]),
+                        Semester = int.Parse(opoDetails[4]),
+                        OpoVerantwoordelijke = docent,
+                    };
+
+                    context.Opos.Add(opo);
+
+                    context.SaveChanges();
+                }
+            }
+
+            if (!context.OpoDocenten.Any())
+            {
+                foreach (string line in File.ReadLines(@"C:\Users\Guest\Desktop\OpleidingOpoDocenten.txt"))
+                {
+                    string[] opoDetails = line.Split(';');
+                    Opo opo = context.Opos.First(x => x.Code.ToLower().Equals(opoDetails[0].ToLower()));
+                    Docent docent = context.Docenten.First(x => x.Email.ToLower().Equals(opoDetails[1].ToLower()));
+
+                    OpoDocent opoDocent = new()
+                    {
+                        Opo = opo,
+                        Docent = docent,
+                    };
+
+                    context.OpoDocenten.Add(opoDocent);
+                    context.SaveChanges();
+                }
+            }
+
+            if (!context.OpoStudenten.Any())
+            {
+
+                foreach (string line in File.ReadLines(@"C:\Users\Guest\Desktop\OpleidingOpoStudenten.txt"))
+                {
+                    string[] opoDetails = line.Split(';');
+                    Opo opo = context.Opos.First(x => x.Code.ToLower().Equals(opoDetails[0].ToLower()));
+                    Student student = context.Studenten.First(x => x.Email.ToLower().Equals(opoDetails[1].ToLower()));
+
+                    OpoStudent opoStudent = new()
+                    {
+                        Opo = opo,
+                        Student = student,
+                    };
+                    context.OpoStudenten.Add(opoStudent);
+                    context.SaveChanges();
+                }
+            } }}
+}
 
 

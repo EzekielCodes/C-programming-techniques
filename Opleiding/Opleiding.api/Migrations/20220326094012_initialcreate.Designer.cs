@@ -12,7 +12,7 @@ using Opleiding.api.DataLayer;
 namespace opleiding.api.Migrations
 {
     [DbContext(typeof(OpleidingContext))]
-    [Migration("20220321112715_initialcreate")]
+    [Migration("20220326094012_initialcreate")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -311,6 +311,47 @@ namespace opleiding.api.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
+            modelBuilder.Entity("opleiding.api.Entitties.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedByIp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PersoonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ReplacedByToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RevokedByIp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersoonId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("Opleiding.api.Entitties.Rol", b =>
                 {
                     b.Property<Guid>("Id")
@@ -515,6 +556,17 @@ namespace opleiding.api.Migrations
                     b.Navigation("Rol");
                 });
 
+            modelBuilder.Entity("opleiding.api.Entitties.RefreshToken", b =>
+                {
+                    b.HasOne("Opleiding.api.Entitties.Persoon", "Persoon")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("PersoonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Persoon");
+                });
+
             modelBuilder.Entity("Opleiding.api.Entitties.Opleiding", b =>
                 {
                     b.Navigation("OpoOpleiding");
@@ -532,6 +584,8 @@ namespace opleiding.api.Migrations
             modelBuilder.Entity("Opleiding.api.Entitties.Persoon", b =>
                 {
                     b.Navigation("PersoonRollen");
+
+                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("Opleiding.api.Entitties.Rol", b =>

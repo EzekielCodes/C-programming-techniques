@@ -25,6 +25,7 @@ namespace Opleiding.api.DataLayer
         public DbSet<OpoStudent> OpoStudenten { get; set; }
         public DbSet<OpoDocent> OpoDocenten { get; set; }
         public DbSet<OpoOpleiding> OpleidingOpos { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
         public OpleidingContext(DbContextOptions<OpleidingContext> options) : base(options)
@@ -136,6 +137,15 @@ namespace Opleiding.api.DataLayer
                 .WithOne(i => i.Opleidingshoofd)
                 .HasForeignKey<Entitties.Opleiding>(b => b.OpleidingId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            //1 op veel
+            builder.Entity<RefreshToken>(x =>
+            {
+                x.HasOne(x => x.Persoon)
+                .WithMany(x => x.RefreshTokens)
+                .HasForeignKey(x => x.PersoonId)
+                .IsRequired();
+            });
 
             //indexen
             builder.Entity<Student>(x =>

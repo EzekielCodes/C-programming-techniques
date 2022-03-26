@@ -202,6 +202,31 @@ namespace opleiding.api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Expires = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedByIp = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Revoked = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RevokedByIp = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReplacedByToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PersoonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_AspNetUsers_PersoonId",
+                        column: x => x.PersoonId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpleidingOpos",
                 columns: table => new
                 {
@@ -350,6 +375,11 @@ namespace opleiding.api.Migrations
                 name: "IX_OpoStudenten_OpoId",
                 table: "OpoStudenten",
                 column: "OpoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_PersoonId",
+                table: "RefreshTokens",
+                column: "PersoonId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -377,6 +407,9 @@ namespace opleiding.api.Migrations
 
             migrationBuilder.DropTable(
                 name: "OpoStudenten");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

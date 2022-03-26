@@ -68,3 +68,4 @@ C:\Users\Guest\c# programming techniques\Opleiding\Opleiding.api\bin\Debug\net6.
 C:\Users\Guest\c# programming techniques\Opleiding\Opleiding.api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\Guest\c# programming techniques\Opleiding\Opleiding.api\bin\Debug\net6.0\opleiding.models.dll
 C:\Users\Guest\c# programming techniques\Opleiding\Opleiding.api\bin\Debug\net6.0\opleiding.models.pdb
+C:\Users\Guest\c# programming techniques\Opleiding\Opleiding.api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
