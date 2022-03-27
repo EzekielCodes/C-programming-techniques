@@ -1,6 +1,9 @@
-﻿namespace opleiding.api.Helper;
-
-public class AppSettings
+﻿namespace opleiding.api.Helper
 {
-    public string Secret { get; set; }
+    public class AppSettings : IAppSettings
+    {
+        public string Secret { get; set; }
+    }
 }
+
+

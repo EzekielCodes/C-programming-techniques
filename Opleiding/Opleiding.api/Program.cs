@@ -24,7 +24,11 @@ builder.Services.AddDbContext<OpleidingContext>(options =>
 //identitity configuration
 builder.Services.AddIdentity<Persoon, Rol>().AddEntityFrameworkStores<OpleidingContext>();
 
+
+
+builder.Services.AddScoped<IAppSettings, AppSettings>();
 builder.Services.AddScoped<IOpoRepository, OpoRepository>();
+builder.Services.AddScoped<IPersoonRepository, PersoonRepository>();
 
 
 

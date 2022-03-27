@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using opleiding.api.Repositories;
 using opleiding.models.Opos;
@@ -24,6 +25,7 @@ namespace opleiding.api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "student, docent")]
         public async Task<ActionResult<GetOposModel>> GetOpos()
         {
             return await _opoRepository.GetOpos();

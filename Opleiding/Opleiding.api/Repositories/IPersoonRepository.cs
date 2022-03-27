@@ -1,9 +1,12 @@
 ﻿using opleiding.models.Gebruikers;
-namespace opleiding.api.Repositories;
-
-public interface IPersoonRepository
+namespace opleiding.api.Repositories
 {
-    Task<PostAuthenticeerResponseModel> Authenticeer(PostAuthenticeerRequestModel postAuthenticeerRequestModel, String ipAddress);
-    Task<PostAuthenticeerResponseModel> VernieuwToken(string token,string ipAddress);
-    Task DeactiveerToken(string token,string ipAddress);
+    public interface IPersoonRepository
+    {
+        Task<PostAuthenticeerResponseModel> Authenticeer(PostAuthenticeerRequestModel postAuthenticeerRequestModel, String ipAddress);
+        Task<PostAuthenticeerResponseModel> VernieuwToken(string token, string ipAddress);
+        Task DeactiveerToken(string token, string ipAddress);
+    }
 }
+
+

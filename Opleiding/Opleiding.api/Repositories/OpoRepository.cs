@@ -6,15 +6,20 @@ using opleiding.models.Opos;
 using Opleiding.api.DataLayer;
 using Opleiding.api.Entitties;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace opleiding.api.Repositories;
 public class OpoRepository : IOpoRepository
 {
     private readonly OpleidingContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ClaimsPrincipal _persoon;
 
-    public OpoRepository(OpleidingContext context)
+    public OpoRepository(OpleidingContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _httpContextAccessor = httpContextAccessor;
+        _persoon = _httpContextAccessor.HttpContext.User;
     }
     public async Task<bool> DeleteOpo(Guid id)
     {
@@ -73,7 +78,16 @@ public class OpoRepository : IOpoRepository
             Opo = opos
         };
 
-        return oposModel;
+        if(_persoon.Claims.Where(x => x.Type.Contains("role")).Count() == 1 &&
+            _persoon.IsInRole("student")&&
+            _persoon.Identity.Name != id.ToString())
+        {
+            throw new Exception("Student heeft geen toegang");
+        }
+        else
+        {
+            return oposModel;
+        }
     }
 
     public async Task<GetOposModel> GetOpos()
@@ -100,7 +114,16 @@ public class OpoRepository : IOpoRepository
             Opos = opos
         };
 
-        return oposModel;
+        if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+            _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+            _persoon.IsInRole("docent"))
+        {
+            throw new Exception("Student heeft geen toegang");
+        }
+        else
+        {
+            return oposModel;
+        }
     }
 
     public async Task<GetOpoModel> PostOpo(PostOpoModel postOpoModel)
