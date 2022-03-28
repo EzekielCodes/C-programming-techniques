@@ -118,66 +118,89 @@ public class OpoRepository : IOpoRepository
             _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
             _persoon.IsInRole("docent"))
         {
-            throw new Exception("Student heeft geen toegang");
+            return oposModel;
+            
         }
         else
         {
-            return oposModel;
+            throw new Exception("Geen toegang");
         }
     }
 
     public async Task<GetOpoModel> PostOpo(PostOpoModel postOpoModel)
     {
-        EntityEntry<Opo> result = await _context.Opos.AddAsync(new Opo
+        if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+            _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+            _persoon.IsInRole("docent"))
         {
-            Stp = postOpoModel.Stp,
-            Code = postOpoModel.Code,
-            Naam = postOpoModel.Naam,
-            Semester = postOpoModel.Semester,
-            Fase = postOpoModel.Fase,
-            OpoVerantwoordelijkeID = postOpoModel.OpoVerantwoordelijkeID
-        });
+            EntityEntry<Opo> result = await _context.Opos.AddAsync(new Opo
+            {
+                Stp = postOpoModel.Stp,
+                Code = postOpoModel.Code,
+                Naam = postOpoModel.Naam,
+                Semester = postOpoModel.Semester,
+                Fase = postOpoModel.Fase,
+                OpoVerantwoordelijkeID = postOpoModel.OpoVerantwoordelijkeID
+            });
 
-        await _context.SaveChangesAsync();
-        return await GetOpo(result.Entity.OpoId);
+            await _context.SaveChangesAsync();
+            return await GetOpo(result.Entity.OpoId);
+
+        }
+        else
+        {
+            throw new Exception("Geen toegang");
+        }
+
+
     }
 
     public async Task<bool> PutOpo(Guid id, PutOpoModel putOpo)
     {
-        try
+
+        if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+            _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+            _persoon.IsInRole("docent"))
         {
-            Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
-            if (opo == null)
+            try
             {
-                throw new Exception("Opo niet gevonden");
+                Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
+                if (opo == null)
+                {
+                    throw new Exception("Opo niet gevonden");
+                    return false;
+                }
+
+                opo.Code = putOpo.Code;
+                opo.Naam = putOpo.Naam;
+                opo.Stp = putOpo.Stp;
+                opo.Semester = putOpo.Semester;
+                opo.Fase = putOpo.Fase;
+
+                putOpo.StudentenID.ForEach(studentId =>
+                {
+                    var opoStudent = new OpoStudent();
+                    opoStudent.StudentId = studentId;
+                    opoStudent.OpoId = id;
+                    if (!opo.OpoStudenten.Contains(opoStudent))
+                    {
+                        opo.OpoStudenten.Add(opoStudent);
+                    }
+                });
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
                 return false;
             }
-           
-            opo.Code = putOpo.Code;
-            opo.Naam = putOpo.Naam;
-            opo.Stp = putOpo.Stp;
-            opo.Semester = putOpo.Semester;
-            opo.Fase = putOpo.Fase;
-
-            putOpo.StudentenID.ForEach(studentId =>
-            {
-                var opoStudent = new OpoStudent();
-                opoStudent.StudentId = studentId;
-                opoStudent.OpoId = id;
-                if (!opo.OpoStudenten.Contains(opoStudent))
-                {
-                    opo.OpoStudenten.Add(opoStudent);
-                }
-            });
-
-            await _context.SaveChangesAsync();
+            return true;
         }
-        catch(Exception ex)
+        else
         {
-            return false;
+            throw new Exception("Geen toegang");
         }
-        return true;
-        
+
     }
 
    

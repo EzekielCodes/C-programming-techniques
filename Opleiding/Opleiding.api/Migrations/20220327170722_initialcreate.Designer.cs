@@ -12,7 +12,7 @@ using Opleiding.api.DataLayer;
 namespace opleiding.api.Migrations
 {
     [DbContext(typeof(OpleidingContext))]
-    [Migration("20220326094012_initialcreate")]
+    [Migration("20220327170722_initialcreate")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -331,14 +331,12 @@ namespace opleiding.api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ReplacedByToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Revoked")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("RevokedByIp")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Token")

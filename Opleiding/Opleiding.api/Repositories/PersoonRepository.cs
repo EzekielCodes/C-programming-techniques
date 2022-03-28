@@ -9,6 +9,7 @@ using System.Text;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using opleiding.api.Helper;
+using Microsoft.Extensions.Options;
 
 namespace opleiding.api.Repositories
 {
@@ -20,11 +21,11 @@ namespace opleiding.api.Repositories
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ClaimsPrincipal _persoon;
 
-        public PersoonRepository(SignInManager<Persoon> signInManager, UserManager<Persoon> userManager, IAppSettings appSettings, IHttpContextAccessor httpContextAccessor)
+        public PersoonRepository(SignInManager<Persoon> signInManager, UserManager<Persoon> userManager, IOptions<AppSettings> appSettings, IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _appSettings = appSettings;
+            _appSettings = appSettings.Value;
             _httpContextAccessor = httpContextAccessor;
             _persoon = _httpContextAccessor.HttpContext.User;
         }
@@ -139,7 +140,7 @@ namespace opleiding.api.Repositories
             return new RefreshToken
             {
                 Token = Convert.ToBase64String(randomBytes),
-                Expires = DateTime.UtcNow.AddMinutes(2), //TOKEN
+                Expires = DateTime.UtcNow.AddMinutes(3), //TOKEN
                 Created = DateTime.UtcNow,
                 CreatedByIp = ipAddress
             };
@@ -163,13 +164,13 @@ namespace opleiding.api.Repositories
                 claims.Add(new Claim(ClaimTypes.Role, roleName));
             }
 
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new();
             byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Issuer = "Opleiding web API",
                 Subject = new ClaimsIdentity(claims.ToArray()),
-                Expires = DateTime.UtcNow.AddSeconds(5), //TOKEN
+                Expires = DateTime.UtcNow.AddMinutes(1), //TOKEN
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
