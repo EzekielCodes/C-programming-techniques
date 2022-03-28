@@ -23,35 +23,48 @@ public class OpoRepository : IOpoRepository
     }
     public async Task<bool> DeleteOpo(Guid id)
     {
-        try
+        if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+           _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+           _persoon.IsInRole("docent"))
         {
-            Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
-            if (opo == null)
+            try
             {
-                throw new NotImplementedException("Opo niet gevonden");
-                return false;
+                Opo opo = await _context.Opos.FirstOrDefaultAsync(x => x.OpoId == id);
+                if (opo == null)
+                {
+                    throw new NotImplementedException("Opo niet gevonden");
+                    return false;
+                }
+                // Remove Opo from OpoDocenten
+                List<OpoDocent> DocentenVanOpo = opo.OpoDocenten.ToList();
+                foreach (var opoDocent in DocentenVanOpo)
+                {
+                    _context.OpoDocenten.Remove(opoDocent);
+                }
+                // Remove Opo from OpoStudenten
+                // _context.OpoStudenten.Where(o => o.OpoId == id).ToList();
+                List<OpoStudent> StudentenVanOpo = opo.OpoStudenten.ToList();
+                foreach (var opoStudent in StudentenVanOpo)
+                {
+                    _context.OpoStudenten.Remove(opoStudent);
+                }
+                _context.Opos.Remove(opo);
+                await _context.SaveChangesAsync();
             }
-            // Remove Opo from OpoDocenten
-            List<OpoDocent> DocentenVanOpo = opo.OpoDocenten.ToList();
-            foreach (var opoDocent in DocentenVanOpo)
+            catch (Exception ex)
             {
-                _context.OpoDocenten.Remove(opoDocent);
+                Debug.WriteLine("Error");
             }
-            // Remove Opo from OpoStudenten
-            // _context.OpoStudenten.Where(o => o.OpoId == id).ToList();
-            List<OpoStudent> StudentenVanOpo = opo.OpoStudenten.ToList();
-            foreach (var opoStudent in StudentenVanOpo)
-            {
-                _context.OpoStudenten.Remove(opoStudent);
-            }
-            _context.Opos.Remove(opo);
-            await _context.SaveChangesAsync();
+            return true;
         }
-        catch(Exception ex)
+
+        else
         {
-            Debug.WriteLine("Error");
+            throw new Exception("Geen toegang");
         }
-        return true;
+
+
+
     }
 
     public async Task<GetOpoModel> GetOpo(Guid id)

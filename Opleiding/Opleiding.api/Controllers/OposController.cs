@@ -37,6 +37,7 @@ namespace opleiding.api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "student, docent")]
         public async Task<ActionResult<GetOpoModel>> GetOpo(Guid id)
         {
             return await _opoRepository.GetOpo(id);
@@ -47,6 +48,7 @@ namespace opleiding.api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "docent")]
         public async Task<ActionResult<GetOpoModel>> PostOpo(PostOpoModel postOpoModel)
         {
             GetOpoModel getopomodel = await _opoRepository.PostOpo(postOpoModel);
@@ -59,6 +61,7 @@ namespace opleiding.api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "docent")]
         public async Task<IActionResult> PutOpo(Guid id,PutOpoModel putOpoModel)
         {
             bool result = await _opoRepository.PutOpo(id, putOpoModel);
@@ -75,6 +78,7 @@ namespace opleiding.api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "student, docent")]
         public async Task<IActionResult> DeleteOpo(Guid id)
         {
             bool result = await _opoRepository.DeleteOpo(id);
