@@ -78,7 +78,7 @@ namespace opleiding.api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [Authorize(Roles = "student, docent")]
+        [Authorize(Roles = "docent")]
         public async Task<IActionResult> DeleteOpo(Guid id)
         {
             bool result = await _opoRepository.DeleteOpo(id);

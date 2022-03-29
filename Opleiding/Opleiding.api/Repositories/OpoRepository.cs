@@ -24,7 +24,6 @@ public class OpoRepository : IOpoRepository
     public async Task<bool> DeleteOpo(Guid id)
     {
         if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
-           _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
            _persoon.IsInRole("docent"))
         {
             try
@@ -62,9 +61,6 @@ public class OpoRepository : IOpoRepository
         {
             throw new Exception("Geen toegang");
         }
-
-
-
     }
 
     public async Task<GetOpoModel> GetOpo(Guid id)
@@ -91,15 +87,16 @@ public class OpoRepository : IOpoRepository
             Opo = opos
         };
 
-        if(_persoon.Claims.Where(x => x.Type.Contains("role")).Count() == 1 &&
-            _persoon.IsInRole("student")&&
-            _persoon.Identity.Name != id.ToString())
+        if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+            _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+             _persoon.IsInRole("docent"))
         {
-            throw new Exception("Student heeft geen toegang");
+            return oposModel;
+
         }
         else
         {
-            return oposModel;
+            throw new Exception("Geen toegang");
         }
     }
 
@@ -128,7 +125,7 @@ public class OpoRepository : IOpoRepository
         };
 
         if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
-            _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
+           _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
             _persoon.IsInRole("docent"))
         {
             return oposModel;
@@ -143,7 +140,6 @@ public class OpoRepository : IOpoRepository
     public async Task<GetOpoModel> PostOpo(PostOpoModel postOpoModel)
     {
         if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
-            _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
             _persoon.IsInRole("docent"))
         {
             EntityEntry<Opo> result = await _context.Opos.AddAsync(new Opo
@@ -172,7 +168,6 @@ public class OpoRepository : IOpoRepository
     {
 
         if (_persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
-            _persoon.IsInRole("student") || _persoon.Claims.Where(x => x.Type.Contains("rol")).Count() == 1 &&
             _persoon.IsInRole("docent"))
         {
             try

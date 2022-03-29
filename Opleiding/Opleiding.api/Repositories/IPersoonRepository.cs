@@ -5,6 +5,7 @@ namespace opleiding.api.Repositories
     {
         Task<PostAuthenticeerResponseModel> Authenticeer(PostAuthenticeerRequestModel postAuthenticeerRequestModel, String ipAddress);
         Task<PostAuthenticeerResponseModel> VernieuwToken(string token, string ipAddress);
+        Task<GetGastModel> GetGastProfiel(string token);
         Task DeactiveerToken(string token, string ipAddress);
     }
 }

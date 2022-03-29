@@ -113,4 +113,27 @@ public class PersoonController : ControllerBase
             return Unauthorized(e.Message);
         }
     }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Roles = "gast")]
+    public async Task<ActionResult<GetGastModel>> GetPersoon()
+    {
+
+        try
+        {
+            string refreshToken = Request.Cookies["Opleiding.RefreshToken"];
+
+            GetGastModel getGastenProfiel = await _persoonRepository.GetGastProfiel(refreshToken);
+
+            return getGastenProfiel;
+        }
+        catch(Exception e)
+        {
+            return Unauthorized(e.Message);
+        } 
+    }
 }

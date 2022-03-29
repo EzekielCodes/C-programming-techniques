@@ -20,7 +20,6 @@ namespace opleiding.api.Repositories
         private readonly IAppSettings _appSettings;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ClaimsPrincipal _persoon;
-
         public PersoonRepository(SignInManager<Persoon> signInManager, UserManager<Persoon> userManager, IOptions<AppSettings> appSettings, IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
@@ -30,8 +29,28 @@ namespace opleiding.api.Repositories
             _persoon = _httpContextAccessor.HttpContext.User;
         }
 
+        public async Task<GetGastModel> GetGastProfiel(string token)
+        {
+            Persoon persoon = await _userManager.Users.FirstOrDefaultAsync(p => p.RefreshTokens.Any(t => t.Token == token));
+
+            if (persoon == null)
+            {
+                throw new Exception("Geen gebruiker gevonden met dit token RefreshToken 401");
+            }
+
+            return new GetGastModel
+            {
+                Familienaam = persoon.Familienaam,
+                Voornaam = persoon.Voornaam,
+                Gebruikersnaam = persoon.UserName,
+                Email = persoon.Email,
+            };
+
+        }
+
         public async Task<PostAuthenticeerResponseModel> Authenticeer(PostAuthenticeerRequestModel postAuthenticeerRequestModel, string ipAddress)
         {
+            
             Persoon persoon = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == postAuthenticeerRequestModel.Gebruikersnaam);
 
             if (persoon == null)
