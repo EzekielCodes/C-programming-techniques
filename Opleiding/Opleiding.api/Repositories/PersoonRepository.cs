@@ -159,7 +159,7 @@ namespace opleiding.api.Repositories
             return new RefreshToken
             {
                 Token = Convert.ToBase64String(randomBytes),
-                Expires = DateTime.UtcNow.AddMinutes(3), //TOKEN
+                Expires = DateTime.UtcNow.AddMinutes(5), //TOKEN
                 Created = DateTime.UtcNow,
                 CreatedByIp = ipAddress
             };
@@ -189,7 +189,7 @@ namespace opleiding.api.Repositories
             {
                 Issuer = "Opleiding web API",
                 Subject = new ClaimsIdentity(claims.ToArray()),
-                Expires = DateTime.UtcNow.AddMinutes(1), //TOKEN
+                Expires = DateTime.UtcNow.AddMinutes(2), //TOKEN
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
